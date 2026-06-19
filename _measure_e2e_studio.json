@@ -1,0 +1,3358 @@
+{
+  "wall_start": "00:30:09",
+  "wall_end": "00:31:22",
+  "audio_bytes": 1617204,
+  "audio_s": 50.537625,
+  "cpu_samples": [
+    [
+      2.609,
+      0.0
+    ],
+    [
+      3.125,
+      0.0
+    ],
+    [
+      3.64,
+      0.0
+    ],
+    [
+      4.14,
+      3.1
+    ],
+    [
+      4.625,
+      0.0
+    ],
+    [
+      5.14,
+      6.1
+    ],
+    [
+      5.656,
+      0.0
+    ],
+    [
+      6.156,
+      0.0
+    ],
+    [
+      6.672,
+      3.0
+    ],
+    [
+      7.187,
+      3.0
+    ],
+    [
+      7.687,
+      12.5
+    ],
+    [
+      8.203,
+      3.0
+    ],
+    [
+      8.718,
+      6.1
+    ],
+    [
+      9.218,
+      6.2
+    ],
+    [
+      9.734,
+      6.1
+    ],
+    [
+      10.25,
+      3.0
+    ],
+    [
+      10.75,
+      500.0
+    ],
+    [
+      11.265,
+      937.5
+    ],
+    [
+      11.765,
+      906.3
+    ],
+    [
+      12.265,
+      915.6
+    ],
+    [
+      12.781,
+      908.4
+    ],
+    [
+      13.297,
+      787.3
+    ],
+    [
+      13.797,
+      928.1
+    ],
+    [
+      14.312,
+      925.4
+    ],
+    [
+      14.797,
+      808.6
+    ],
+    [
+      15.297,
+      903.1
+    ],
+    [
+      15.797,
+      1078.1
+    ],
+    [
+      16.312,
+      1101.3
+    ],
+    [
+      16.828,
+      1035.6
+    ],
+    [
+      17.343,
+      1037.6
+    ],
+    [
+      17.843,
+      968.7
+    ],
+    [
+      18.359,
+      920.5
+    ],
+    [
+      18.859,
+      909.4
+    ],
+    [
+      19.359,
+      953.1
+    ],
+    [
+      19.859,
+      1000.0
+    ],
+    [
+      20.375,
+      984.1
+    ],
+    [
+      20.89,
+      1074.0
+    ],
+    [
+      21.375,
+      828.0
+    ],
+    [
+      21.875,
+      984.4
+    ],
+    [
+      22.406,
+      991.6
+    ],
+    [
+      22.953,
+      1034.0
+    ],
+    [
+      23.453,
+      1109.4
+    ],
+    [
+      23.968,
+      919.3
+    ],
+    [
+      24.468,
+      971.9
+    ],
+    [
+      24.968,
+      987.5
+    ],
+    [
+      25.484,
+      1011.4
+    ],
+    [
+      26.0,
+      1020.5
+    ],
+    [
+      26.515,
+      746.4
+    ],
+    [
+      27.015,
+      315.6
+    ],
+    [
+      27.531,
+      841.8
+    ],
+    [
+      28.047,
+      0.0
+    ],
+    [
+      28.562,
+      0.0
+    ],
+    [
+      29.078,
+      0.0
+    ],
+    [
+      29.593,
+      0.0
+    ],
+    [
+      30.109,
+      0.0
+    ],
+    [
+      30.625,
+      0.0
+    ],
+    [
+      31.14,
+      0.0
+    ],
+    [
+      31.656,
+      0.0
+    ],
+    [
+      32.156,
+      887.5
+    ],
+    [
+      32.703,
+      968.4
+    ],
+    [
+      33.25,
+      1051.2
+    ],
+    [
+      33.781,
+      1003.4
+    ],
+    [
+      34.297,
+      1035.6
+    ],
+    [
+      34.812,
+      976.9
+    ],
+    [
+      35.343,
+      894.5
+    ],
+    [
+      35.859,
+      944.8
+    ],
+    [
+      36.39,
+      1029.9
+    ],
+    [
+      36.922,
+      1054.4
+    ],
+    [
+      37.437,
+      1031.6
+    ],
+    [
+      37.922,
+      982.6
+    ],
+    [
+      38.437,
+      752.4
+    ],
+    [
+      38.937,
+      956.2
+    ],
+    [
+      39.437,
+      918.8
+    ],
+    [
+      39.953,
+      1029.6
+    ],
+    [
+      40.453,
+      1031.2
+    ],
+    [
+      40.953,
+      1006.2
+    ],
+    [
+      41.484,
+      1041.7
+    ],
+    [
+      41.984,
+      1040.6
+    ],
+    [
+      42.484,
+      984.4
+    ],
+    [
+      43.0,
+      978.1
+    ],
+    [
+      43.531,
+      979.9
+    ],
+    [
+      44.031,
+      1028.1
+    ],
+    [
+      44.547,
+      1056.8
+    ],
+    [
+      45.078,
+      1050.5
+    ],
+    [
+      45.609,
+      897.5
+    ],
+    [
+      46.125,
+      1053.8
+    ],
+    [
+      46.625,
+      978.1
+    ],
+    [
+      47.125,
+      1062.5
+    ],
+    [
+      47.625,
+      821.9
+    ],
+    [
+      48.14,
+      976.9
+    ],
+    [
+      48.625,
+      940.7
+    ],
+    [
+      49.125,
+      1068.8
+    ],
+    [
+      49.656,
+      1074.0
+    ],
+    [
+      50.172,
+      1099.2
+    ],
+    [
+      50.687,
+      1049.8
+    ],
+    [
+      51.187,
+      1037.5
+    ],
+    [
+      51.672,
+      940.7
+    ],
+    [
+      52.203,
+      991.6
+    ],
+    [
+      52.703,
+      1078.1
+    ],
+    [
+      53.218,
+      1007.3
+    ],
+    [
+      53.718,
+      1021.9
+    ],
+    [
+      54.218,
+      1012.5
+    ],
+    [
+      54.718,
+      1090.6
+    ],
+    [
+      55.218,
+      959.4
+    ],
+    [
+      55.718,
+      984.4
+    ],
+    [
+      56.218,
+      993.8
+    ],
+    [
+      56.718,
+      993.8
+    ],
+    [
+      57.218,
+      1009.4
+    ],
+    [
+      57.718,
+      1018.8
+    ],
+    [
+      58.218,
+      703.1
+    ],
+    [
+      58.718,
+      906.3
+    ],
+    [
+      59.234,
+      1011.4
+    ],
+    [
+      59.75,
+      1011.4
+    ],
+    [
+      60.265,
+      907.2
+    ],
+    [
+      60.75,
+      834.4
+    ],
+    [
+      61.25,
+      984.4
+    ],
+    [
+      61.75,
+      971.9
+    ],
+    [
+      62.265,
+      1004.2
+    ],
+    [
+      62.765,
+      921.9
+    ],
+    [
+      63.281,
+      1059.8
+    ],
+    [
+      63.781,
+      984.4
+    ],
+    [
+      64.297,
+      929.6
+    ],
+    [
+      64.812,
+      916.3
+    ],
+    [
+      65.297,
+      960.1
+    ],
+    [
+      65.812,
+      892.0
+    ],
+    [
+      66.297,
+      821.5
+    ],
+    [
+      66.797,
+      843.8
+    ],
+    [
+      67.297,
+      934.4
+    ],
+    [
+      67.812,
+      882.9
+    ],
+    [
+      68.328,
+      896.3
+    ],
+    [
+      68.859,
+      906.3
+    ],
+    [
+      69.359,
+      987.5
+    ],
+    [
+      69.859,
+      956.2
+    ],
+    [
+      70.375,
+      720.7
+    ],
+    [
+      70.875,
+      100.0
+    ],
+    [
+      71.39,
+      97.1
+    ],
+    [
+      71.906,
+      96.9
+    ],
+    [
+      72.406,
+      100.0
+    ],
+    [
+      72.922,
+      60.6
+    ]
+  ],
+  "events": [
+    {
+      "t": 2.109,
+      "type": "info",
+      "msg": "loading STT model..."
+    },
+    {
+      "t": 2.109,
+      "type": "info",
+      "msg": "ready",
+      "backend": "phowhisper"
+    },
+    {
+      "t": 10.484,
+      "type": "sync",
+      "committed": "thon",
+      "interim": "thức luôn",
+      "speaker": 0
+    },
+    {
+      "t": 11.14,
+      "type": "sync",
+      "committed": "thon thức luôn",
+      "interim": "đó thành",
+      "speaker": 0
+    },
+    {
+      "t": 11.531,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành",
+      "interim": "ra anh",
+      "speaker": 0
+    },
+    {
+      "t": 11.906,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh",
+      "interim": "mới đi",
+      "speaker": 0
+    },
+    {
+      "t": 12.218,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới",
+      "interim": "đi ra",
+      "speaker": 0
+    },
+    {
+      "t": 12.89,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra",
+      "interim": "phía nhà",
+      "speaker": 0
+    },
+    {
+      "t": 13.203,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía",
+      "interim": "nhà sau",
+      "speaker": 0
+    },
+    {
+      "t": 13.531,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau",
+      "interim": "một chút",
+      "speaker": 0
+    },
+    {
+      "t": 13.968,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút.",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 14.562,
+      "type": "trans_stream_c",
+      "token": " I"
+    },
+    {
+      "t": 14.593,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 14.609,
+      "type": "trans_stream_c",
+      "token": "m"
+    },
+    {
+      "t": 14.625,
+      "type": "trans_stream_c",
+      "token": " just"
+    },
+    {
+      "t": 14.656,
+      "type": "trans_stream_c",
+      "token": " going"
+    },
+    {
+      "t": 14.687,
+      "type": "trans_stream_c",
+      "token": " out"
+    },
+    {
+      "t": 14.703,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 14.734,
+      "type": "trans_stream_c",
+      "token": " back"
+    },
+    {
+      "t": 14.765,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 14.797,
+      "type": "trans_stream_c",
+      "token": " little"
+    },
+    {
+      "t": 14.812,
+      "type": "trans_stream_c",
+      "token": " bit"
+    },
+    {
+      "t": 14.843,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 14.875,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 14.875,
+      "type": "latency",
+      "utterance_id": "f3291822",
+      "translate_ms": 907,
+      "chunk_words": 15
+    },
+    {
+      "t": 14.875,
+      "type": "tts_start",
+      "utterance_id": "f3291822-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 15.265,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút. đi thẳng ra đó.",
+      "interim": "chắc tàu",
+      "speaker": 0
+    },
+    {
+      "t": 15.609,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút. đi thẳng ra đó. chắc",
+      "interim": "tầm khoảng",
+      "speaker": 0
+    },
+    {
+      "t": 16.0,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó các tàu",
+      "interim": "khoảng dài",
+      "speaker": 0
+    },
+    {
+      "t": 16.343,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài",
+      "interim": "chục mét",
+      "speaker": 0
+    },
+    {
+      "t": 16.406,
+      "type": "pcm_bytes",
+      "n": 93184
+    },
+    {
+      "t": 16.406,
+      "type": "latency",
+      "utterance_id": "f3291822",
+      "first_audio_ms": 2438
+    },
+    {
+      "t": 16.406,
+      "type": "tts_end",
+      "utterance_id": "f3291822-0",
+      "chunks": 1
+    },
+    {
+      "t": 16.734,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục",
+      "interim": "mét á",
+      "speaker": 0
+    },
+    {
+      "t": 17.453,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét",
+      "interim": "á thì",
+      "speaker": 0
+    },
+    {
+      "t": 17.781,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á",
+      "interim": "thì phía",
+      "speaker": 0
+    },
+    {
+      "t": 18.14,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì",
+      "interim": "phía nhà",
+      "speaker": 0
+    },
+    {
+      "t": 18.437,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía",
+      "interim": "nhà sau",
+      "speaker": 0
+    },
+    {
+      "t": 18.781,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau",
+      "interim": "của bệnh",
+      "speaker": 0
+    },
+    {
+      "t": 19.187,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà",
+      "interim": "nội anh",
+      "speaker": 0
+    },
+    {
+      "t": 19.515,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh",
+      "interim": "nó có",
+      "speaker": 0
+    },
+    {
+      "t": 19.859,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó",
+      "interim": "có nguyên",
+      "speaker": 0
+    },
+    {
+      "t": 20.172,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên",
+      "interim": "một cái",
+      "speaker": 0
+    },
+    {
+      "t": 20.515,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái",
+      "interim": "cây mai",
+      "speaker": 0
+    },
+    {
+      "t": 20.609,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 21.125,
+      "type": "trans_stream_c",
+      "token": " And"
+    },
+    {
+      "t": 21.14,
+      "type": "trans_stream_c",
+      "token": " then"
+    },
+    {
+      "t": 21.172,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 21.203,
+      "type": "trans_stream_c",
+      "token": " right"
+    },
+    {
+      "t": 21.218,
+      "type": "trans_stream_c",
+      "token": " out"
+    },
+    {
+      "t": 21.234,
+      "type": "trans_stream_c",
+      "token": " there"
+    },
+    {
+      "t": 21.265,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 21.281,
+      "type": "trans_stream_c",
+      "token": " probably"
+    },
+    {
+      "t": 21.312,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 21.328,
+      "type": "trans_stream_c",
+      "token": " couple"
+    },
+    {
+      "t": 21.359,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 21.375,
+      "type": "trans_stream_c",
+      "token": " hundred"
+    },
+    {
+      "t": 21.406,
+      "type": "trans_stream_c",
+      "token": " y"
+    },
+    {
+      "t": 21.406,
+      "type": "tts_start",
+      "utterance_id": "68253187-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 21.703,
+      "type": "trans_stream_c",
+      "token": "ards"
+    },
+    {
+      "t": 22.218,
+      "type": "trans_stream_c",
+      "token": " away"
+    },
+    {
+      "t": 22.265,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự",
+      "interim": "lắm anh",
+      "speaker": 0
+    },
+    {
+      "t": 22.687,
+      "type": "pcm_bytes",
+      "n": 109568
+    },
+    {
+      "t": 22.687,
+      "type": "latency",
+      "utterance_id": "68253187",
+      "first_audio_ms": 2079
+    },
+    {
+      "t": 22.687,
+      "type": "tts_end",
+      "utterance_id": "68253187-0",
+      "chunks": 1
+    },
+    {
+      "t": 22.687,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh",
+      "interim": "đoán chắc",
+      "speaker": 0
+    },
+    {
+      "t": 23.078,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc",
+      "interim": "cũng cần",
+      "speaker": 0
+    },
+    {
+      "t": 23.39,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc",
+      "interim": "cũng cả",
+      "speaker": 0
+    },
+    {
+      "t": 23.734,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng",
+      "interim": "cả cách",
+      "speaker": 0
+    },
+    {
+      "t": 24.047,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả",
+      "interim": "trăm năm",
+      "speaker": 0
+    },
+    {
+      "t": 24.359,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm",
+      "interim": "rồi đó",
+      "speaker": 0
+    },
+    {
+      "t": 24.437,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 25.078,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó.",
+      "interim": "nó bự",
+      "speaker": 0
+    },
+    {
+      "t": 25.422,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó",
+      "interim": "bự mà",
+      "speaker": 0
+    },
+    {
+      "t": 25.765,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà",
+      "interim": "chắc khoảng",
+      "speaker": 0
+    },
+    {
+      "t": 31.718,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà",
+      "interim": "chắc khoảng",
+      "speaker": 0
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " there"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " whole"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " pine"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " tree"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " in"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 31.734,
+      "type": "tts_start",
+      "utterance_id": "68253187-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " back"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " his"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " grand"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "m"
+    },
+    {
+      "t": 31.734,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà chắc khoảng hai.",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "other"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": " house"
+    },
+    {
+      "t": 31.734,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 31.937,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà chắc khoảng hai. ba người ôm mới vừa.",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 32.062,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà chắc khoảng hai. ba người ôm mới vừa. chính, vì vậy, mà cái tàn của nó đó.",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 32.156,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà chắc khoảng hai. ba người ôm mới vừa. chính, vì vậy, mà cái tàn của nó đó. nó bung ra gì nào, mà trái",
+      "interim": "quá trời",
+      "speaker": 0
+    },
+    {
+      "t": 32.593,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó. nó bự, mà chắc khoảng hai. ba người ôm mới vừa. chính, vì vậy, mà cái tàn của nó đó. nó bung ra gì nào, mà trái quá",
+      "interim": "trời nhiều",
+      "speaker": 0
+    },
+    {
+      "t": 33.031,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều",
+      "interim": "hổng ăn",
+      "speaker": 0
+    },
+    {
+      "t": 33.422,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 33.422,
+      "type": "latency",
+      "utterance_id": "68253187",
+      "translate_ms": 12813,
+      "chunk_words": 26
+    },
+    {
+      "t": 33.468,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều hỏng",
+      "interim": "ai hái",
+      "speaker": 0
+    },
+    {
+      "t": 33.843,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều hỏng ai hái",
+      "interim": "hết trơn",
+      "speaker": 0
+    },
+    {
+      "t": 34.156,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều hỏng ai hái hết",
+      "interim": "trơn á",
+      "speaker": 0
+    },
+    {
+      "t": 34.234,
+      "type": "pcm_bytes",
+      "n": 105472
+    },
+    {
+      "t": 34.234,
+      "type": "tts_end",
+      "utterance_id": "68253187-1",
+      "chunks": 1
+    },
+    {
+      "t": 34.234,
+      "type": "tts_start",
+      "utterance_id": "68253187-2",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 34.515,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều không ai hái hết.",
+      "interim": "trơn á",
+      "speaker": 0
+    },
+    {
+      "t": 35.453,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều hỏng ai hái hết trơn á.",
+      "interim": "kế bên",
+      "speaker": 0
+    },
+    {
+      "t": 35.75,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nè, mà trái quá trời nhiều không ai hái hết trơn á kế bên",
+      "interim": "cái cây",
+      "speaker": 0
+    },
+    {
+      "t": 36.093,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều hỏng ai hái hết trơn á kế bên cái cây",
+      "interim": "me này",
+      "speaker": 0
+    },
+    {
+      "t": 36.609,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều hỏng ai hái hết trơn á kế bên cái cây me",
+      "interim": "này là",
+      "speaker": 0
+    },
+    {
+      "t": 36.937,
+      "type": "pcm_bytes",
+      "n": 102400
+    },
+    {
+      "t": 36.937,
+      "type": "tts_end",
+      "utterance_id": "68253187-2",
+      "chunks": 1
+    },
+    {
+      "t": 36.968,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này.",
+      "interim": "là một",
+      "speaker": 0
+    },
+    {
+      "t": 37.343,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều hỏng ai hái hết trơn á kế bên cái cây me này là một",
+      "interim": "cái mương",
+      "speaker": 0
+    },
+    {
+      "t": 37.578,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 38.343,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 38.406,
+      "type": "trans_stream_c",
+      "token": " It"
+    },
+    {
+      "t": 38.437,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 38.468,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 38.484,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 38.515,
+      "type": "trans_stream_c",
+      "token": " hundred"
+    },
+    {
+      "t": 38.531,
+      "type": "trans_stream_c",
+      "token": " years"
+    },
+    {
+      "t": 38.562,
+      "type": "trans_stream_c",
+      "token": " old"
+    },
+    {
+      "t": 38.593,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái",
+      "interim": "mương nó",
+      "speaker": 0
+    },
+    {
+      "t": 38.593,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 38.937,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương",
+      "interim": "nó hổng",
+      "speaker": 0
+    },
+    {
+      "t": 39.25,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng",
+      "interim": "bự hỏ",
+      "speaker": 0
+    },
+    {
+      "t": 39.593,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự",
+      "interim": "hổng nhỏ",
+      "speaker": 0
+    },
+    {
+      "t": 40.109,
+      "type": "trans_stream_c",
+      "token": " I"
+    },
+    {
+      "t": 40.14,
+      "type": "trans_stream_c",
+      "token": " guess"
+    },
+    {
+      "t": 40.172,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 40.203,
+      "type": "trans_stream_c",
+      "token": " It"
+    },
+    {
+      "t": 40.234,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 40.265,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 40.328,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 40.547,
+      "type": "trans_stream_c",
+      "token": " hundred"
+    },
+    {
+      "t": 40.609,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng",
+      "interim": "nhỏ nhưng",
+      "speaker": 0
+    },
+    {
+      "t": 40.953,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ",
+      "interim": "nhưng đặc",
+      "speaker": 0
+    },
+    {
+      "t": 41.297,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ nhưng đặc",
+      "interim": "biệt anh",
+      "speaker": 0
+    },
+    {
+      "t": 41.64,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ nhưng đặc biệt anh",
+      "interim": "để ý",
+      "speaker": 0
+    },
+    {
+      "t": 42.031,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ nhưng đặc biệt anh để",
+      "interim": "ý á",
+      "speaker": 0
+    },
+    {
+      "t": 42.406,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ nhưng đặc biệt anh để ý á",
+      "interim": "chắc có",
+      "speaker": 0
+    },
+    {
+      "t": 42.422,
+      "type": "trans_stream_c",
+      "token": " years"
+    },
+    {
+      "t": 42.422,
+      "type": "tts_start",
+      "utterance_id": "40c9432d-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 43.015,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc",
+      "interim": "có thể",
+      "speaker": 0
+    },
+    {
+      "t": 43.578,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý á chắc có thể do.",
+      "interim": "cái cây",
+      "speaker": 0
+    },
+    {
+      "t": 44.031,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý á chắc có thể do. cái",
+      "interim": "cây me",
+      "speaker": 0
+    },
+    {
+      "t": 44.64,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này.",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 44.812,
+      "type": "pcm_bytes",
+      "n": 98304
+    },
+    {
+      "t": 44.812,
+      "type": "latency",
+      "utterance_id": "40c9432d",
+      "first_audio_ms": 13094
+    },
+    {
+      "t": 44.812,
+      "type": "tts_end",
+      "utterance_id": "40c9432d-0",
+      "chunks": 1
+    },
+    {
+      "t": 45.328,
+      "type": "trans_stream_c",
+      "token": " old"
+    },
+    {
+      "t": 45.359,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 45.39,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 45.39,
+      "type": "latency",
+      "utterance_id": "40c9432d",
+      "translate_ms": 13656,
+      "chunk_words": 18
+    },
+    {
+      "t": 45.39,
+      "type": "tts_start",
+      "utterance_id": "40c9432d-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 45.609,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này. cái tà, mà",
+      "interim": "của nó",
+      "speaker": 0
+    },
+    {
+      "t": 45.875,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tà của",
+      "interim": "nó chi",
+      "speaker": 0
+    },
+    {
+      "t": 46.39,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tà của nó",
+      "interim": "che hết",
+      "speaker": 0
+    },
+    {
+      "t": 46.562,
+      "type": "pcm_bytes",
+      "n": 61440
+    },
+    {
+      "t": 46.562,
+      "type": "tts_end",
+      "utterance_id": "40c9432d-1",
+      "chunks": 1
+    },
+    {
+      "t": 46.812,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tà của nó",
+      "interim": "che hết",
+      "speaker": 0
+    },
+    {
+      "t": 46.812,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàm của nó",
+      "interim": "che hết",
+      "speaker": 0
+    },
+    {
+      "t": 47.125,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàm của nó che",
+      "interim": "hết nguyên",
+      "speaker": 0
+    },
+    {
+      "t": 47.5,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên",
+      "interim": "cái mưa",
+      "speaker": 0
+    },
+    {
+      "t": 47.875,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàm của nó che hết nguyên cái",
+      "interim": "mương á",
+      "speaker": 0
+    },
+    {
+      "t": 48.078,
+      "type": "trans_stream_c",
+      "token": " Three"
+    },
+    {
+      "t": 48.172,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 48.297,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàm của nó che hết nguyên cái",
+      "interim": "cái mương",
+      "speaker": 0
+    },
+    {
+      "t": 48.297,
+      "type": "trans_stream_c",
+      "token": " you"
+    },
+    {
+      "t": 48.468,
+      "type": "trans_stream_c",
+      "token": " just"
+    },
+    {
+      "t": 48.5,
+      "type": "trans_stream_c",
+      "token": " hug"
+    },
+    {
+      "t": 48.531,
+      "type": "trans_stream_c",
+      "token": "ged"
+    },
+    {
+      "t": 48.578,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á.",
+      "interim": "thành ra",
+      "speaker": 0
+    },
+    {
+      "t": 48.625,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 48.703,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 48.703,
+      "type": "latency",
+      "utterance_id": "70de6f2c",
+      "translate_ms": 16797,
+      "chunk_words": 5
+    },
+    {
+      "t": 48.703,
+      "type": "tts_start",
+      "utterance_id": "70de6f2c-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 49.156,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra",
+      "interim": "là cái",
+      "speaker": 0
+    },
+    {
+      "t": 49.531,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái",
+      "interim": "mương nó",
+      "speaker": 0
+    },
+    {
+      "t": 49.797,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất",
+      "interim": "là trong",
+      "speaker": 0
+    },
+    {
+      "t": 49.906,
+      "type": "pcm_bytes",
+      "n": 61440
+    },
+    {
+      "t": 49.906,
+      "type": "latency",
+      "utterance_id": "70de6f2c",
+      "first_audio_ms": 18063
+    },
+    {
+      "t": 49.906,
+      "type": "tts_end",
+      "utterance_id": "70de6f2c-0",
+      "chunks": 1
+    },
+    {
+      "t": 50.531,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là",
+      "interim": "trong anh",
+      "speaker": 0
+    },
+    {
+      "t": 50.906,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong",
+      "interim": "anh nghĩ",
+      "speaker": 0
+    },
+    {
+      "t": 51.093,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 51.562,
+      "type": "trans_stream_c",
+      "token": " It"
+    },
+    {
+      "t": 51.578,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 51.609,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 51.625,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 51.656,
+      "type": "trans_stream_c",
+      "token": " main"
+    },
+    {
+      "t": 51.672,
+      "type": "trans_stream_c",
+      "token": " thing"
+    },
+    {
+      "t": 51.703,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 51.734,
+      "type": "trans_stream_c",
+      "token": " so"
+    },
+    {
+      "t": 51.75,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 51.781,
+      "type": "trans_stream_c",
+      "token": " what"
+    },
+    {
+      "t": 51.781,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà.",
+      "interim": "bà nội",
+      "speaker": 0
+    },
+    {
+      "t": 51.828,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 51.859,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 51.906,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 51.937,
+      "type": "trans_stream_c",
+      "token": " big"
+    },
+    {
+      "t": 51.984,
+      "type": "trans_stream_c",
+      "token": " deal"
+    },
+    {
+      "t": 52.015,
+      "type": "trans_stream_c",
+      "token": "?"
+    },
+    {
+      "t": 52.062,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 52.062,
+      "type": "latency",
+      "utterance_id": "c83a5007",
+      "translate_ms": 20000,
+      "chunk_words": 9
+    },
+    {
+      "t": 52.062,
+      "type": "tts_start",
+      "utterance_id": "c83a5007-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 52.265,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội",
+      "interim": "mình á",
+      "speaker": 0
+    },
+    {
+      "t": 52.593,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình",
+      "interim": "á kỳ",
+      "speaker": 0
+    },
+    {
+      "t": 52.984,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á",
+      "interim": "kỹ càng",
+      "speaker": 0
+    },
+    {
+      "t": 54.0,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng",
+      "interim": "thành ra",
+      "speaker": 0
+    },
+    {
+      "t": 54.297,
+      "type": "pcm_bytes",
+      "n": 101376
+    },
+    {
+      "t": 54.297,
+      "type": "latency",
+      "utterance_id": "c83a5007",
+      "first_audio_ms": 22344
+    },
+    {
+      "t": 54.297,
+      "type": "tts_end",
+      "utterance_id": "c83a5007-0",
+      "chunks": 1
+    },
+    {
+      "t": 54.453,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra",
+      "interim": "là họ",
+      "speaker": 0
+    },
+    {
+      "t": 54.968,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra là không",
+      "interim": "có bỏ",
+      "speaker": 0
+    },
+    {
+      "t": 55.218,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra là không có bỏ",
+      "interim": "rác ra",
+      "speaker": 0
+    },
+    {
+      "t": 55.531,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra là không có bỏ rác",
+      "interim": "rến gì",
+      "speaker": 0
+    },
+    {
+      "t": 55.89,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra là không có bỏ rác rến",
+      "interim": "vẽ dưới",
+      "speaker": 0
+    },
+    {
+      "t": 56.218,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á. thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà. bà nội mình á kỹ càng thành ra là không có bỏ rác rến giữa",
+      "interim": "dưới chân",
+      "speaker": 0
+    },
+    {
+      "t": 56.593,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà bà nội mình á kỹ càng thành ra là không có bỏ rác rến gì ở dưới hết.",
+      "interim": "trơn á",
+      "speaker": 0
+    },
+    {
+      "t": 57.218,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà bà nội mình á kỹ càng thành ra là không có bỏ rác rến gì ở dưới hết. trơn á trong",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 57.765,
+      "type": "trans_stream_c",
+      "token": " But"
+    },
+    {
+      "t": 57.797,
+      "type": "trans_stream_c",
+      "token": " there"
+    },
+    {
+      "t": 57.828,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 57.843,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 57.875,
+      "type": "trans_stream_c",
+      "token": " so"
+    },
+    {
+      "t": 57.906,
+      "type": "trans_stream_c",
+      "token": " much"
+    },
+    {
+      "t": 57.937,
+      "type": "trans_stream_c",
+      "token": " left"
+    },
+    {
+      "t": 57.953,
+      "type": "trans_stream_c",
+      "token": " that"
+    },
+    {
+      "t": 57.984,
+      "type": "trans_stream_c",
+      "token": " nobody"
+    },
+    {
+      "t": 58.015,
+      "type": "trans_stream_c",
+      "token": " gets"
+    },
+    {
+      "t": 58.047,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 58.062,
+      "type": "trans_stream_c",
+      "token": " best"
+    },
+    {
+      "t": 58.093,
+      "type": "trans_stream_c",
+      "token": " gr"
+    },
+    {
+      "t": 58.093,
+      "type": "tts_start",
+      "utterance_id": "e14fec98-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 58.297,
+      "type": "trans_stream_c",
+      "token": "ass"
+    },
+    {
+      "t": 58.343,
+      "type": "trans_stream_c",
+      "token": " next"
+    },
+    {
+      "t": 58.39,
+      "type": "trans_stream_c",
+      "token": " to"
+    },
+    {
+      "t": 58.562,
+      "type": "trans_stream_c",
+      "token": " this"
+    },
+    {
+      "t": 58.609,
+      "type": "trans_stream_c",
+      "token": " tree"
+    },
+    {
+      "t": 58.672,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 59.14,
+      "type": "pcm_bytes",
+      "n": 102400
+    },
+    {
+      "t": 59.14,
+      "type": "latency",
+      "utterance_id": "e14fec98",
+      "first_audio_ms": 21578
+    },
+    {
+      "t": 59.14,
+      "type": "tts_end",
+      "utterance_id": "e14fec98-0",
+      "chunks": 1
+    },
+    {
+      "t": 59.156,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 59.156,
+      "type": "latency",
+      "utterance_id": "e14fec98",
+      "translate_ms": 21609,
+      "chunk_words": 21
+    },
+    {
+      "t": 59.156,
+      "type": "tts_start",
+      "utterance_id": "e14fec98-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 59.25,
+      "type": "trans_stream_c",
+      "token": " What"
+    },
+    {
+      "t": 59.281,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 59.312,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 59.343,
+      "type": "trans_stream_c",
+      "token": " that"
+    },
+    {
+      "t": 59.375,
+      "type": "trans_stream_c",
+      "token": " sound"
+    },
+    {
+      "t": 59.422,
+      "type": "trans_stream_c",
+      "token": "?"
+    },
+    {
+      "t": 59.453,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 59.453,
+      "type": "latency",
+      "utterance_id": "e8464cb7",
+      "translate_ms": 21906,
+      "chunk_words": 5
+    },
+    {
+      "t": 59.672,
+      "type": "trans_stream_c",
+      "token": " The"
+    },
+    {
+      "t": 59.718,
+      "type": "trans_stream_c",
+      "token": " cro"
+    },
+    {
+      "t": 59.765,
+      "type": "trans_stream_c",
+      "token": "wn"
+    },
+    {
+      "t": 59.828,
+      "type": "trans_stream_c",
+      "token": " is"
+    },
+    {
+      "t": 59.875,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 59.922,
+      "type": "trans_stream_c",
+      "token": " small"
+    },
+    {
+      "t": 59.984,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 60.062,
+      "type": "trans_stream_c",
+      "token": " small"
+    },
+    {
+      "t": 60.125,
+      "type": "trans_stream_c",
+      "token": " hole"
+    },
+    {
+      "t": 60.125,
+      "type": "pcm_bytes",
+      "n": 84992
+    },
+    {
+      "t": 60.125,
+      "type": "tts_end",
+      "utterance_id": "e14fec98-1",
+      "chunks": 1
+    },
+    {
+      "t": 60.125,
+      "type": "tts_start",
+      "utterance_id": "e8464cb7-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 60.187,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 60.39,
+      "type": "trans_stream_c",
+      "token": " but"
+    },
+    {
+      "t": 60.5,
+      "type": "trans_stream_c",
+      "token": " I"
+    },
+    {
+      "t": 60.609,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 60.703,
+      "type": "trans_stream_c",
+      "token": "m"
+    },
+    {
+      "t": 60.75,
+      "type": "trans_stream_c",
+      "token": " particularly"
+    },
+    {
+      "t": 60.75,
+      "type": "pcm_bytes",
+      "n": 50176
+    },
+    {
+      "t": 60.765,
+      "type": "latency",
+      "utterance_id": "e8464cb7",
+      "first_audio_ms": 23266
+    },
+    {
+      "t": 60.765,
+      "type": "tts_end",
+      "utterance_id": "e8464cb7-0",
+      "chunks": 1
+    },
+    {
+      "t": 60.765,
+      "type": "tts_start",
+      "utterance_id": "69c1733a-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 60.781,
+      "type": "trans_stream_c",
+      "token": " aware"
+    },
+    {
+      "t": 60.828,
+      "type": "trans_stream_c",
+      "token": " that"
+    },
+    {
+      "t": 60.875,
+      "type": "trans_stream_c",
+      "token": " this"
+    },
+    {
+      "t": 60.906,
+      "type": "trans_stream_c",
+      "token": " may"
+    },
+    {
+      "t": 60.953,
+      "type": "trans_stream_c",
+      "token": " be"
+    },
+    {
+      "t": 61.047,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 61.078,
+      "type": "trans_stream_c",
+      "token": " root"
+    },
+    {
+      "t": 61.14,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 61.203,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 61.25,
+      "type": "trans_stream_c",
+      "token": " plant"
+    },
+    {
+      "t": 61.297,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 61.406,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "The crown is a small, small hole, but I'm particularly aware that this may be the root of the plant.",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 61.406,
+      "type": "latency",
+      "utterance_id": "69c1733a",
+      "translate_ms": 16750,
+      "chunk_words": 21
+    },
+    {
+      "t": 61.468,
+      "type": "pcm_bytes",
+      "n": 52224
+    },
+    {
+      "t": 61.468,
+      "type": "latency",
+      "utterance_id": "69c1733a",
+      "first_audio_ms": 16906
+    },
+    {
+      "t": 61.468,
+      "type": "tts_end",
+      "utterance_id": "69c1733a-0",
+      "chunks": 1
+    },
+    {
+      "t": 61.468,
+      "type": "tts_start",
+      "utterance_id": "69c1733a-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 61.859,
+      "type": "sync",
+      "committed": "thon thức luôn đó thành ra anh mới đi ra phía nhà sau một chút đi thẳng ra đó chắc tầm khoảng vài chục mét á thì phía nhà sau của bà nội anh nó có nguyên một cái cây me bự lắm anh đoán chắc cũng cả cả trăm năm rồi đó nó bự, mà chắc khoảng hai ba người ôm mới vừa chính, vì vậy, mà cái tàn của nó đó nó bung ra gì nào, mà trái quá trời nhiều không ai hái hết trơn á kế bên cái cây me này là một cái mương cái mương nó hổng bự hổng nhỏ, nhưng đặc biệt anh để ý chắc có thể do cái cây me này cái tàn của nó che hết nguyên cái mương á thành ra là cái mương nó rất là trong anh nghĩ chắc do với nhà bà nội mình á kỹ càng thành ra là không có bỏ rác rến gì ở dưới hết. trơn á trong",
+      "interim": "",
+      "speaker": 0
+    },
+    {
+      "t": 62.718,
+      "type": "pcm_bytes",
+      "n": 131072
+    },
+    {
+      "t": 62.718,
+      "type": "tts_end",
+      "utterance_id": "69c1733a-1",
+      "chunks": 1
+    },
+    {
+      "t": 62.718,
+      "type": "tts_start",
+      "utterance_id": "69c1733a-2",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 63.312,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "The crown is a small, small hole, but I'm particularly aware that this may be the root of the plant.",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 63.609,
+      "type": "pcm_bytes",
+      "n": 75776
+    },
+    {
+      "t": 63.609,
+      "type": "tts_end",
+      "utterance_id": "69c1733a-2",
+      "chunks": 1
+    },
+    {
+      "t": 63.625,
+      "type": "trans_stream_c",
+      "token": " His"
+    },
+    {
+      "t": 63.656,
+      "type": "trans_stream_c",
+      "token": " hand"
+    },
+    {
+      "t": 63.718,
+      "type": "trans_stream_c",
+      "token": " cov"
+    },
+    {
+      "t": 63.765,
+      "type": "trans_stream_c",
+      "token": "ers"
+    },
+    {
+      "t": 63.797,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 63.828,
+      "type": "trans_stream_c",
+      "token": " entire"
+    },
+    {
+      "t": 63.859,
+      "type": "trans_stream_c",
+      "token": " face"
+    },
+    {
+      "t": 63.906,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 63.937,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 63.984,
+      "type": "trans_stream_c",
+      "token": " diam"
+    },
+    {
+      "t": 64.015,
+      "type": "trans_stream_c",
+      "token": "ond"
+    },
+    {
+      "t": 64.047,
+      "type": "trans_stream_c",
+      "token": " and"
+    },
+    {
+      "t": 64.062,
+      "type": "trans_stream_c",
+      "token": " it"
+    },
+    {
+      "t": 64.062,
+      "type": "tts_start",
+      "utterance_id": "8a48706f-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 64.109,
+      "type": "trans_stream_c",
+      "token": " turns"
+    },
+    {
+      "t": 64.14,
+      "type": "trans_stream_c",
+      "token": " out"
+    },
+    {
+      "t": 64.172,
+      "type": "trans_stream_c",
+      "token": " that"
+    },
+    {
+      "t": 64.218,
+      "type": "trans_stream_c",
+      "token": " it"
+    },
+    {
+      "t": 64.265,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 64.297,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 64.328,
+      "type": "trans_stream_c",
+      "token": " a"
+    },
+    {
+      "t": 64.375,
+      "type": "trans_stream_c",
+      "token": " diam"
+    },
+    {
+      "t": 64.515,
+      "type": "trans_stream_c",
+      "token": "ond"
+    },
+    {
+      "t": 64.562,
+      "type": "trans_stream_c",
+      "token": " deep"
+    },
+    {
+      "t": 64.609,
+      "type": "trans_stream_c",
+      "token": " inside"
+    },
+    {
+      "t": 64.656,
+      "type": "trans_stream_c",
+      "token": " you"
+    },
+    {
+      "t": 64.687,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 64.734,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "The crown is a small, small hole, but I'm particularly aware that this may be the root of the plant.",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "His hand covers the entire face of the diamond and it turns out that it's a diamond deep inside you.",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 64.734,
+      "type": "latency",
+      "utterance_id": "8a48706f",
+      "translate_ms": 13641,
+      "chunk_words": 22
+    },
+    {
+      "t": 64.843,
+      "type": "trans_stream_c",
+      "token": " Because"
+    },
+    {
+      "t": 64.89,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 64.953,
+      "type": "trans_stream_c",
+      "token": " my"
+    },
+    {
+      "t": 65.0,
+      "type": "trans_stream_c",
+      "token": " grand"
+    },
+    {
+      "t": 65.031,
+      "type": "trans_stream_c",
+      "token": "m"
+    },
+    {
+      "t": 65.078,
+      "type": "trans_stream_c",
+      "token": "other"
+    },
+    {
+      "t": 65.125,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 65.172,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 65.218,
+      "type": "trans_stream_c",
+      "token": " house"
+    },
+    {
+      "t": 65.265,
+      "type": "trans_stream_c",
+      "token": ","
+    },
+    {
+      "t": 65.297,
+      "type": "trans_stream_c",
+      "token": " it"
+    },
+    {
+      "t": 65.343,
+      "type": "pcm_bytes",
+      "n": 109568
+    },
+    {
+      "t": 65.343,
+      "type": "trans_stream_c",
+      "token": " turns"
+    },
+    {
+      "t": 65.343,
+      "type": "latency",
+      "utterance_id": "8a48706f",
+      "first_audio_ms": 14297
+    },
+    {
+      "t": 65.343,
+      "type": "tts_end",
+      "utterance_id": "8a48706f-0",
+      "chunks": 1
+    },
+    {
+      "t": 65.343,
+      "type": "tts_start",
+      "utterance_id": "8a48706f-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 65.468,
+      "type": "trans_stream_c",
+      "token": " out"
+    },
+    {
+      "t": 65.5,
+      "type": "trans_stream_c",
+      "token": " there"
+    },
+    {
+      "t": 65.547,
+      "type": "trans_stream_c",
+      "token": "'"
+    },
+    {
+      "t": 66.297,
+      "type": "pcm_bytes",
+      "n": 94208
+    },
+    {
+      "t": 66.297,
+      "type": "tts_end",
+      "utterance_id": "8a48706f-1",
+      "chunks": 1
+    },
+    {
+      "t": 66.297,
+      "type": "tts_start",
+      "utterance_id": "8a48706f-2",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 66.812,
+      "type": "trans_stream_c",
+      "token": "s"
+    },
+    {
+      "t": 66.859,
+      "type": "trans_stream_c",
+      "token": " no"
+    },
+    {
+      "t": 66.906,
+      "type": "trans_stream_c",
+      "token": " gar"
+    },
+    {
+      "t": 66.968,
+      "type": "trans_stream_c",
+      "token": "bage"
+    },
+    {
+      "t": 67.031,
+      "type": "trans_stream_c",
+      "token": " in"
+    },
+    {
+      "t": 67.078,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 67.125,
+      "type": "trans_stream_c",
+      "token": " bottom"
+    },
+    {
+      "t": 67.172,
+      "type": "trans_stream_c",
+      "token": " of"
+    },
+    {
+      "t": 67.187,
+      "type": "pcm_bytes",
+      "n": 74752
+    },
+    {
+      "t": 67.187,
+      "type": "tts_end",
+      "utterance_id": "8a48706f-2",
+      "chunks": 1
+    },
+    {
+      "t": 67.187,
+      "type": "tts_start",
+      "utterance_id": "d71bfc64-0",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 68.281,
+      "type": "pcm_bytes",
+      "n": 120832
+    },
+    {
+      "t": 68.281,
+      "type": "latency",
+      "utterance_id": "d71bfc64",
+      "first_audio_ms": 11063
+    },
+    {
+      "t": 68.281,
+      "type": "tts_end",
+      "utterance_id": "d71bfc64-0",
+      "chunks": 1
+    },
+    {
+      "t": 68.515,
+      "type": "trans_stream_c",
+      "token": " the"
+    },
+    {
+      "t": 68.562,
+      "type": "trans_stream_c",
+      "token": " pot"
+    },
+    {
+      "t": 68.625,
+      "type": "trans_stream_c",
+      "token": "."
+    },
+    {
+      "t": 68.656,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "The crown is a small, small hole, but I'm particularly aware that this may be the root of the plant.",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "His hand covers the entire face of the diamond and it turns out that it's a diamond deep inside you.",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "Because of my grandmother's house, it turns out there's no garbage in the bottom of the pot.",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    },
+    {
+      "t": 68.656,
+      "type": "latency",
+      "utterance_id": "d71bfc64",
+      "translate_ms": 11438,
+      "chunk_words": 24
+    },
+    {
+      "t": 68.656,
+      "type": "tts_start",
+      "utterance_id": "d71bfc64-1",
+      "sample_rate": 24000,
+      "voice": "af_sarah"
+    },
+    {
+      "t": 69.797,
+      "type": "pcm_bytes",
+      "n": 115712
+    },
+    {
+      "t": 69.797,
+      "type": "tts_end",
+      "utterance_id": "d71bfc64-1",
+      "chunks": 1
+    },
+    {
+      "t": 69.968,
+      "type": "translation_update",
+      "delta": {
+        "committed": [
+          {
+            "id": "f3291822",
+            "text": "I'm just going out the back a little bit.",
+            "speaker": 0
+          },
+          {
+            "id": "68253187",
+            "text": "And then, right out there, probably a couple of hundred yards away, there's a whole pine tree in the back of his grandmother's house.",
+            "speaker": 0
+          },
+          {
+            "id": "40c9432d",
+            "text": "It's a hundred years old, I guess. It's a hundred years old.",
+            "speaker": 0
+          },
+          {
+            "id": "70de6f2c",
+            "text": "Three of you just hugged.",
+            "speaker": 0
+          },
+          {
+            "id": "c83a5007",
+            "text": "It's the main thing, so, what's the big deal?",
+            "speaker": 0
+          },
+          {
+            "id": "e8464cb7",
+            "text": "What's that sound?",
+            "speaker": 0
+          },
+          {
+            "id": "e14fec98",
+            "text": "But there's so much left that nobody gets the best grass next to this tree.",
+            "speaker": 0
+          },
+          {
+            "id": "69c1733a",
+            "text": "The crown is a small, small hole, but I'm particularly aware that this may be the root of the plant.",
+            "speaker": 0
+          },
+          {
+            "id": "8a48706f",
+            "text": "His hand covers the entire face of the diamond and it turns out that it's a diamond deep inside you.",
+            "speaker": 0
+          },
+          {
+            "id": "d71bfc64",
+            "text": "Because of my grandmother's house, it turns out there's no garbage in the bottom of the pot.",
+            "speaker": 0
+          }
+        ],
+        "stable_interim": [],
+        "volatile_interim": []
+      }
+    }
+  ]
+}

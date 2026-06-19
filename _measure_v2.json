@@ -1,0 +1,46 @@
+{
+  "mode": "v2",
+  "sample_rate": 16000,
+  "total_audio_s": 22.436,
+  "markers_s": {
+    "pause_mid_1": 1.44,
+    "pause_boundary_1": 3.298,
+    "pause_mid_2": 5.794,
+    "pause_boundary_2": 7.83,
+    "pause_mid_3": 10.308,
+    "pause_boundary_3": 12.068,
+    "pause_boundary_4": 21.636
+  },
+  "events": [
+    {
+      "t": 3.827999999979511,
+      "silence_ms": 600,
+      "text": "hôm nay trời rất đẹp nên tôi muốn đi dạo"
+    },
+    {
+      "t": 8.375,
+      "silence_ms": 600,
+      "text": "buổi sáng tôi ăn phở rồi tôi đi làm luôn"
+    },
+    {
+      "t": 12.655999999959022,
+      "silence_ms": 600,
+      "text": "cuối tuần tôi sẽ về quê để thăm ông bà"
+    },
+    {
+      "t": 18.98499999998603,
+      "silence_ms": 0,
+      "text": "tôi thức dậy sớm và tôi đi tập thể dục rồi tôi ăn sáng nhưng tôi quên mang theo ô"
+    },
+    {
+      "t": 19.625,
+      "silence_ms": 600,
+      "text": "cô nên khi ra đường"
+    },
+    {
+      "t": 22.125,
+      "silence_ms": 600,
+      "text": "thì trời bắt đầu mưa to"
+    }
+  ]
+}

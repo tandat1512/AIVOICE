@@ -1,0 +1,25 @@
+# Glossary of proper nouns and terms to preserve during translation.
+# Format: lowercase_vi_form = Canonical English/Title-Case form
+# Lines starting with # are ignored. Blank lines are ignored.
+# Longer multi-word entries are matched before shorter single-word ones.
+# The sentinel round-trip pattern (g0g, g1g, ...) avoids colliding with mask_places (x0x, x1x, ...).
+#
+# IMPORTANT: Only add entries that are unambiguously proper nouns.
+# Do NOT add words that double as common Vietnamese words (e.g. "nam"=south,
+# "minh"=clear, "bảo"=to tell, "lan"=to spread) — they will cause false positives.
+
+# People names (only when unambiguous in context — avoid bare common words)
+duy = Duy
+
+# Apps / brands / services
+zalo = Zalo
+youtube = YouTube
+facebook = Facebook
+tiktok = TikTok
+grab = Grab
+shopee = Shopee
+lazada = Lazada
+
+# Concepts / cultural terms (multi-word first — safest, no false positives)
+duyên âm = Duyên Âm
+ma lai = Ma Lai

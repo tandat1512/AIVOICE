@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  smartgen:
+    build: .
+    image: smartgen:latest
+    ports:
+      - "127.0.0.1:8000:8000"  # loopback-only; change to "0.0.0.0:8000:8000" for LAN access
+    volumes:
+      # Mount local models/ directory so the container reuses downloaded models
+      - ./models:/app/models
+    env_file:
+      - .env
+    restart: unless-stopped
+    # Uncomment for GPU support (requires NVIDIA Container Toolkit):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]

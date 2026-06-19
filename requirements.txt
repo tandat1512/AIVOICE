@@ -1,0 +1,26 @@
+# API & Server
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.6
+python-multipart>=0.0.29
+
+# Speech-to-Text (STT)
+sherpa-onnx>=1.13.2
+faster-whisper>=1.2.1
+RealtimeSTT>=1.0.0
+
+# Translation (MarianMT & NLLB)
+transformers>=4.44.2
+ctranslate2>=4.7.2
+sentencepiece>=0.2.0
+
+# Text-to-Speech (TTS)
+kokoro-onnx>=0.5.0
+soundfile>=0.13.1
+
+# Utilities & Math
+numpy>=1.26.4
+PyYAML>=6.0.3
+onnxruntime>=1.26.0
+
+# Note: torch and torchaudio are usually installed separately via the setup script 
+# to ensure the correct CUDA index (e.g. cu121) is used.

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>YouTube Real-time Dubbing (VI)</title>
+<style>
+  body{font-family:system-ui,Segoe UI,Arial;margin:0;background:#0f1115;color:#e8eaed}
+  .wrap{max-width:780px;margin:0 auto;padding:16px}
+  h1{font-size:18px}
+  .row{display:flex;gap:8px;margin:10px 0;flex-wrap:wrap}
+  input,select,button{font-size:14px;padding:8px 10px;border-radius:8px;border:1px solid #333;background:#1a1d24;color:#e8eaed}
+  input{flex:1;min-width:240px}
+  button{background:#2b6cff;border:none;cursor:pointer;font-weight:600}
+  button:disabled{opacity:.5;cursor:default}
+  .seg button{background:#23272f}
+  .seg button.on{background:#2b6cff}
+  #player{margin:10px 0;background:#000;border-radius:8px;overflow:hidden}
+  .sub{min-height:64px;padding:10px;background:#1a1d24;border-radius:8px;margin-top:8px}
+  .sub .o{color:#9aa0a6;font-size:13px}
+  .sub .t{color:#7ee787;font-size:18px;margin-top:4px}
+  .meta{font-size:12px;color:#9aa0a6;margin-top:6px}
+  .pill{display:inline-block;background:#23272f;border-radius:12px;padding:2px 8px;margin:0 6px 4px 0;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>YouTube Real-time Dubbing -> Tieng Viet</h1>
+  <div class="row">
+    <input id="url" placeholder="Dan link YouTube (https://youtu.be/...)" />
+    <input id="src" style="flex:0 0 80px;min-width:70px" placeholder="src (en)" value="en"/>
+    <button id="load">Tai transcript</button>
+  </div>
+  <div class="row seg" id="modes">
+    <button data-m="stt" class="on">Che do B: Tab + STT khop transcript</button>
+    <button data-m="embed">Che do A: Nhung (dong bo theo thoi gian)</button>
+  </div>
+  <div class="row"><button id="start" disabled>Bat dau long tieng</button><button id="stop" disabled>Dung</button></div>
+  <div class="meta" id="status">1) Dan link, Tai transcript. 2) Chon che do. 3) Bat dau.</div>
+  <div id="player"></div>
+  <div class="sub"><div class="o" id="orig"></div><div class="t" id="trans"></div></div>
+  <div class="meta" id="stats"></div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+const YT2NLLB={en:'eng_Latn',vi:'vie_Latn',ja:'jpn_Jpan',ko:'kor_Hang',zh:'zho_Hans',fr:'fra_Latn',es:'spa_Latn',de:'deu_Latn',ru:'rus_Cyrl',th:'tha_Thai',id:'ind_Latn',pt:'por_Latn'};
+const toNllb=c=>YT2NLLB[c]||YT2NLLB[(c||'').split('-')[0]]||'eng_Latn';
+const TGT='vie_Latn';
+const $=id=>document.getElementById(id);
+const setStatus=s=>$('status').textContent=s;
+const extractId=s=>{const m=(s||'').match(/(?:v=|youtu\.be\/|\/shorts\/|\/embed\/|\/live\/)([A-Za-z0-9_-]{11})/);if(m)return m[1];if(/^[A-Za-z0-9_-]{11}$/.test((s||'').trim()))return s.trim();return null;};
+
+let mode='stt', videoId=null, snips=[], srcNllb='eng_Latn';
+let actx=null, prepared={}, inflight={}, nextFree=0;
+let ytReady=false, player=null, ticking=false, lastT=0, nextIdx=0;        // embed mode
+let ws=null, mediaStream=null, node=null, sttText='', afterIndex=-1, lastDubbed=-1, aligning=false; // stt mode
+
+function onYouTubeIframeAPIReady(){ytReady=true;}
+
+async function translate(text){
+  const r=await fetch('/api/youtube/translate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,src_lang:srcNllb,tgt_lang:TGT})});
+  return ((await r.json()).translated_text||'').trim();
+}
+async function tts(text){
+  if(!text)return null;
+  const resp=await fetch('/api/youtube/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+  const sr=parseInt(resp.headers.get('X-Sample-Rate')||'22050');
+  const i16=new Int16Array(await resp.arrayBuffer()); const f32=new Float32Array(i16.length);
+  for(let k=0;k<i16.length;k++)f32[k]=i16[k]/32768;
+  const ab=actx.createBuffer(1,f32.length,sr); ab.getChannelData(0).set(f32); return ab;
+}
+function prepare(i){
+  if(i<0||i>=snips.length||prepared[i]||inflight[i])return;
+  inflight[i]=true;
+  (async()=>{ try{ const tr=await translate(snips[i].text); prepared[i]={tr,audio:await tts(tr)}; }
+    catch(e){ prepared[i]={tr:'['+e+']',audio:null}; } finally{ inflight[i]=false; } })();
+}
+function playClip(i){
+  const d=prepared[i]; if(!d)return;
+  $('orig').textContent=snips[i].text; $('trans').textContent=d.tr;
+  if(d.audio){ const s=actx.createBufferSource(); s.buffer=d.audio; s.connect(actx.destination);
+    const at=Math.max(actx.currentTime,nextFree); s.start(at); nextFree=at+d.audio.duration; }
+}
+function ensureCtx(){ if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended')actx.resume(); }
+
+/* ---------- load transcript ---------- */
+$('load').onclick=async()=>{
+  const id=extractId($('url').value); if(!id){setStatus('Link khong hop le.');return;}
+  videoId=id; prepared={};inflight={};nextFree=0;nextIdx=0;afterIndex=-1;lastDubbed=-1;sttText='';
+  setStatus('Dang lay transcript...');
+  const r=await fetch('/api/youtube/transcript?id='+encodeURIComponent(id)+'&src='+encodeURIComponent($('src').value||''));
+  const j=await r.json(); if(j.error){setStatus('Loi: '+j.error);return;}
+  snips=j.snippets; srcNllb=toNllb(j.lang);
+  setStatus('Transcript: '+j.count+' cau ('+j.lang+'). Chon che do roi Bat dau. (raw '+j.raw_count+' manh)');
+  $('start').disabled=false;
+};
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>{ if(ticking||ws)return;
+  mode=b.dataset.m; document.querySelectorAll('#modes button').forEach(x=>x.classList.toggle('on',x===b)); });
+
+/* ---------- START ---------- */
+$('start').onclick=async()=>{ ensureCtx(); $('start').disabled=true; $('stop').disabled=false;
+  if(mode==='embed') startEmbed(); else startStt(); };
+$('stop').onclick=()=>stopAll();
+
+/* ---------- Mode A: embedded, sync by currentTime ---------- */
+function startEmbed(){
+  const wait=setInterval(()=>{ if(ytReady){clearInterval(wait);
+    player=new YT.Player('player',{height:'400',width:'100%',videoId,playerVars:{autoplay:0,controls:1,rel:0},
+      events:{onReady:e=>e.target.mute(),onStateChange:e=>{ if(e.data===YT.PlayerState.PLAYING&&!ticking){ticking=true;tickEmbed();} }}});
+  }},100);
+  setStatus('Che do A: Nhan Play tren video. Tieng goc tat, ban nghe ban long tieng.');
+}
+function tickEmbed(){
+  if(!ticking)return;
+  if(player&&player.getCurrentTime){ const t=player.getCurrentTime();
+    if(Math.abs(t-lastT)>1.5){ nextIdx=snips.findIndex(s=>s.start>=t-0.2); if(nextIdx<0)nextIdx=snips.length; nextFree=actx.currentTime; }
+    lastT=t;
+    for(let i=nextIdx;i<snips.length&&snips[i].start<=t+8;i++)prepare(i);
+    while(nextIdx<snips.length&&snips[nextIdx].start<=t){
+      if(snips[nextIdx].start<t-2.5){nextIdx++;continue;}
+      if(!prepared[nextIdx]){prepare(nextIdx);break;}
+      playClip(nextIdx);nextIdx++;
+    }
+    $('stats').innerHTML='<span class="pill">che do A (nhung)</span><span class="pill">t='+t.toFixed(1)+'s</span><span class="pill">san sang '+Object.keys(prepared).length+'/'+snips.length+'</span>';
+  }
+  setTimeout(tickEmbed,150);
+}
+
+/* ---------- Mode B: tab capture + STT aligned to transcript ---------- */
+async function startStt(){
+  setStatus('Che do B: chon TAB dang phat YouTube va bat "Chia se am thanh tab".');
+  try{
+    const disp=await navigator.mediaDevices.getDisplayMedia({video:{width:1,height:1,frameRate:1},audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    if(!disp.getAudioTracks().length){ setStatus('Khong co audio tab. Hay bat "Chia se am thanh tab".'); stopAll(); return; }
+    disp.getVideoTracks().forEach(t=>t.stop());
+    mediaStream=new MediaStream(disp.getAudioTracks());
+  }catch(e){ setStatus('Bat audio tab that bai: '+e.message); stopAll(); return; }
+  await actx.audioWorklet.addModule('/static/worklets/pcm-worklet.js');
+  ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host+'/ws/stt');
+  ws.binaryType='arraybuffer';
+  ws.onmessage=ev=>{ let m; try{m=JSON.parse(ev.data);}catch(_){return;} if(m.type==='stt'){ onStt(m.committed||''); } };
+  ws.onopen=()=>{
+    const srcNode=actx.createMediaStreamSource(mediaStream);
+    node=new AudioWorkletNode(actx,'pcm-worklet');
+    node.port.onmessage=e=>{ if(ws&&ws.readyState===1)ws.send(e.data); };
+    srcNode.connect(node); node.connect(actx.destination);
+    setStatus('Che do B: dang nghe + khop transcript. Long tieng se theo sau giong noi.');
+  };
+}
+async function onStt(committed){
+  sttText=committed; if(aligning)return; aligning=true;
+  try{
+    const r=await fetch('/api/youtube/align',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({video_id:videoId,stt_text:sttText,after_index:afterIndex})});
+    const a=await r.json(); if(a.error){aligning=false;return;}
+    const idx=a.index;
+    // dub every transcript sentence from lastDubbed+1 .. idx
+    for(let i=lastDubbed+1;i<=idx;i++){ if(!prepared[i])prepare(i); }
+    for(let i=lastDubbed+1;i<=idx;i++){ if(prepared[i]){ playClip(i); lastDubbed=i; } else break; }
+    // buffer ahead a couple
+    prepare(idx+1); prepare(idx+2);
+    if(idx>afterIndex)afterIndex=idx;
+    $('stats').innerHTML='<span class="pill">che do B (STT)</span><span class="pill">vi tri cau #'+idx+'/'+snips.length+'</span><span class="pill">match '+(a.score||0)+'</span>';
+  }catch(_){}
+  aligning=false;
+}
+
+function stopAll(){
+  ticking=false;
+  try{ if(ws)ws.close(); }catch(_){}; ws=null;
+  try{ if(node)node.disconnect(); }catch(_){};
+  try{ if(mediaStream)mediaStream.getTracks().forEach(t=>t.stop()); }catch(_){};
+  try{ if(player&&player.destroy)player.destroy(); }catch(_){}; player=null;
+  $('start').disabled=false; $('stop').disabled=true; setStatus('Da dung.');
+}
+</script>
+</body>
+</html>

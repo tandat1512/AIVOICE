@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SmartGen — Realtime Voice Translate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/smartgen/styles.css?v=20260618f"/>
+</head>
+<body>
+<div id="root"></div>
+
+<!-- React + Babel are vendored locally so the UI runs 100% offline (no CDN). -->
+<script src="/static/vendor/react.production.min.js"></script>
+<script src="/static/vendor/react-dom.production.min.js"></script>
+<script src="/static/vendor/babel.min.js"></script>
+
+<!-- Real backend client (WebSocket STT/translate/TTS + REST). Plain script, exposes window.SG. -->
+<script src="/static/smartgen/backend.js?v=20260618f"></script>
+
+<!-- View layer (transpiled in-browser by Babel). -->
+<script type="text/babel" src="/static/smartgen/orb.jsx?v=20260618f"></script>
+<script type="text/babel" src="/static/smartgen/ui.jsx?v=20260618f"></script>
+<script type="text/babel" src="/static/smartgen/tweaks-panel.jsx?v=20260618f"></script>
+<script type="text/babel" src="/static/smartgen/app.jsx?v=20260618f"></script>
+<script type="text/babel" src="/static/smartgen/screens.jsx?v=20260618f"></script>
+<script type="text/babel" src="/static/smartgen/main.jsx?v=20260618f"></script>
+</body>
+</html>

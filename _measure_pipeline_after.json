@@ -1,0 +1,114 @@
+[
+  {
+    "key": "s1_short",
+    "text": "Xin chào, hôm nay trời rất đẹp.",
+    "n_words": 7,
+    "first_audio_ms": 3047,
+    "t_first_pcm_ms": 3046.9999999913853,
+    "t_nllb_first_token_ms": 2296.9999999913853,
+    "t_handoff_ms": 2391.0000000032596,
+    "t_kokoro_first_pcm_ms": 3046.9999999913853,
+    "n_tts_starts": 1,
+    "n_tts_ends": 1,
+    "tts_utterance_ids": [
+      "ff1ebabb-0"
+    ],
+    "utterance_audio_s": {
+      "ff1ebabb-0": 1.536
+    },
+    "total_audio_s": 1.536,
+    "translate_ms": 2391
+  },
+  {
+    "key": "s2_medium",
+    "text": "Tôi muốn đặt một bàn cho bốn người vào lúc bảy giờ tối nay.",
+    "n_words": 14,
+    "first_audio_ms": 828,
+    "t_first_pcm_ms": 828.0000000086147,
+    "t_nllb_first_token_ms": 47.0000000204891,
+    "t_handoff_ms": 140.00000001396984,
+    "t_kokoro_first_pcm_ms": 828.0000000086147,
+    "n_tts_starts": 2,
+    "n_tts_ends": 2,
+    "tts_utterance_ids": [
+      "a5c60c5a-0",
+      "a5c60c5a-1"
+    ],
+    "utterance_audio_s": {
+      "a5c60c5a-0": 1.728,
+      "a5c60c5a-1": 1.4506666666666668
+    },
+    "total_audio_s": 3.1786666666666665,
+    "translate_ms": 156
+  },
+  {
+    "key": "s3_long",
+    "text": "Sau khi ăn sáng xong, chúng tôi quyết định đi dạo quanh công viên gần nhà.",
+    "n_words": 16,
+    "first_audio_ms": 1235,
+    "t_first_pcm_ms": 1234.9999999860302,
+    "t_nllb_first_token_ms": 32.00000000651926,
+    "t_handoff_ms": 125.0,
+    "t_kokoro_first_pcm_ms": 1234.9999999860302,
+    "n_tts_starts": 2,
+    "n_tts_ends": 2,
+    "tts_utterance_ids": [
+      "f22b3bce-0",
+      "f22b3bce-1"
+    ],
+    "utterance_audio_s": {
+      "f22b3bce-0": 2.7306666666666666,
+      "f22b3bce-1": 1.1733333333333333
+    },
+    "total_audio_s": 3.904,
+    "translate_ms": 157
+  },
+  {
+    "key": "s4_longer",
+    "text": "Mặc dù trời mưa rất to nhưng anh ấy vẫn quyết định đi làm đúng giờ như mọi ngày.",
+    "n_words": 19,
+    "first_audio_ms": 984,
+    "t_first_pcm_ms": 983.9999999967404,
+    "t_nllb_first_token_ms": 30.999999988125637,
+    "t_handoff_ms": 140.00000001396984,
+    "t_kokoro_first_pcm_ms": 983.9999999967404,
+    "n_tts_starts": 2,
+    "n_tts_ends": 2,
+    "tts_utterance_ids": [
+      "672fabde-0",
+      "672fabde-1"
+    ],
+    "utterance_audio_s": {
+      "672fabde-0": 2.3253333333333335,
+      "672fabde-1": 1.792
+    },
+    "total_audio_s": 4.117333333333334,
+    "translate_ms": 187
+  },
+  {
+    "key": "s5_30w_2commas",
+    "text": "Sáng nay tôi thức dậy sớm, chuẩn bị đồ ăn sáng cho cả nhà, sau đó đưa con đi học rồi mới quay về nhà để bắt đầu công việc của mình.",
+    "n_words": 32,
+    "first_audio_ms": 797,
+    "t_first_pcm_ms": 796.9999999913853,
+    "t_nllb_first_token_ms": 30.999999988125637,
+    "t_handoff_ms": 93.99999998277053,
+    "t_kokoro_first_pcm_ms": 796.9999999913853,
+    "n_tts_starts": 4,
+    "n_tts_ends": 4,
+    "tts_utterance_ids": [
+      "e54e0a28-0",
+      "9e9d1628-0",
+      "2b140afc-0",
+      "2b140afc-1"
+    ],
+    "utterance_audio_s": {
+      "e54e0a28-0": 1.5786666666666667,
+      "9e9d1628-0": 2.624,
+      "2b140afc-0": 1.856,
+      "2b140afc-1": 1.4933333333333334
+    },
+    "total_audio_s": 7.552,
+    "translate_ms": 94
+  }
+]

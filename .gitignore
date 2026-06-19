@@ -1,0 +1,23 @@
+.venv/
+models/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.log
+*.pcm
+.claude/
+.codegraph/
+.codex/
+.omc/
+server.err
+*.mp4
+server_err.txt
+server_out.txt
+deepmind_eval.log
+data/*.db
+data/*.db-*
+
+# Bench artifacts (regenerable via bench_tts.py)
+bench_tts_results.json
+bench_tts_sample.wav

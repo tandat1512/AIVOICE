@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartGen</title>
+<style>
+  /* ============================================================
+     SmartGen — popup. "Neural Synapse Bridge" visual system.
+     Two living nodes (VI voice / EN output) joined by an
+     electrical neural line that fires during translation.
+     ============================================================ */
+
+  :root {
+    --void:        #06060b;
+    --void-2:      #0a0a12;
+    --indigo-deep: #160d36;
+    --indigo:      #1f1450;
+    --cyan:        #00e5ff;
+    --cyan-soft:   #5cf2ff;
+    --violet:      #a35cff;
+    --amber:       #ffb347;
+    --amber-hot:   #ff8a3c;
+    --rose:        #ff5d73;
+    --white:       #f4f7ff;
+    --mute:        #7d829c;
+    --mute-2:      #565a73;
+
+    --glass-1: rgba(255,255,255,0.035);
+    --glass-2: rgba(255,255,255,0.06);
+    --glass-edge: rgba(255,255,255,0.10);
+    --glass-edge-hot: rgba(0,229,255,0.35);
+
+    --ff: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+    --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 360px; height: 580px; overflow: hidden; }
+
+  body {
+    font-family: var(--ff);
+    color: var(--white);
+    background: var(--void);
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+    user-select: none;
+  }
+
+  /* ---- atmospheric background ---- */
+  .bg-field {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 50% -10%, var(--indigo-deep) 0%, transparent 55%),
+      radial-gradient(90% 60% at 100% 110%, rgba(0,229,255,0.10) 0%, transparent 50%),
+      linear-gradient(180deg, var(--void-2) 0%, var(--void) 100%);
+  }
+  .bg-field::before {
+    content: ""; position: absolute; inset: -50%;
+    background-image: radial-gradient(rgba(255,255,255,0.025) 0.5px, transparent 0.5px);
+    background-size: 3px 3px; opacity: 0.6; mix-blend-mode: screen;
+  }
+  .aurora {
+    position: absolute; z-index: 0;
+    width: 280px; height: 280px; border-radius: 50%;
+    filter: blur(64px); opacity: 0.5;
+    background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
+    top: -130px; right: -90px;
+    animation: drift 16s var(--ease) infinite alternate;
+  }
+  .aurora.two {
+    background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
+    top: auto; bottom: -150px; left: -100px; right: auto;
+    opacity: 0.5; animation-duration: 20s; animation-delay: -5s;
+  }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(-30px,40px) scale(1.16); }
+  }
+
+  .app {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    height: 100%; padding: 15px 15px 13px; gap: 11px;
+  }
+
+  /* ============================ HEADER ============================ */
+  header { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .mark { width: 30px; height: 30px; display: grid; place-items: center; }
+  .mark svg { width: 30px; height: 30px; overflow: visible; }
+  .wordmark { display: flex; flex-direction: column; line-height: 1; }
+  .wordmark b {
+    font-size: 15px; font-weight: 700; letter-spacing: -0.03em;
+    background: linear-gradient(92deg, #fff 20%, var(--cyan-soft) 120%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .wordmark span {
+    font-size: 8.5px; font-weight: 500; letter-spacing: 0.22em;
+    color: var(--mute); text-transform: uppercase; margin-top: 3px;
+  }
+
+  .status {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 11px 6px 9px;
+    background: var(--glass-1); border: 1px solid var(--glass-edge);
+    border-radius: 100px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .orb {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--mute-2); color: var(--cyan);
+    transition: background .4s var(--ease); position: relative;
+  }
+  .status-text {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--mute); text-transform: capitalize; transition: color .3s;
+  }
+  body[data-state="connecting"] .orb { background: var(--amber); animation: breathe 1.1s ease-in-out infinite; }
+  body[data-state="connecting"] .status-text { color: var(--amber); }
+  body[data-state="listening"]  .orb { background: var(--cyan); animation: breathe 1.6s ease-in-out infinite; }
+  body[data-state="listening"]  .status-text { color: var(--cyan-soft); }
+  body[data-state="translating"] .orb { background: var(--amber-hot); color: var(--amber-hot); animation: breathe 0.7s ease-in-out infinite; }
+  body[data-state="translating"] .status-text { color: var(--amber); }
+  @keyframes breathe {
+    0%,100% { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+    50%     { box-shadow: 0 0 14px 3px currentColor; opacity: 0.75; }
+  }
+
+  /* ===================== SYNAPSE BRIDGE (signature) ===================== */
+  .bridge {
+    flex-shrink: 0; position: relative;
+    height: 132px; border-radius: var(--r-lg);
+    background: linear-gradient(160deg, var(--glass-2), var(--glass-1));
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 30px -16px rgba(0,0,0,0.8);
+    overflow: hidden;
+  }
+  /* SVG sized 1:1 to its viewBox so node circles stay perfectly round.
+     viewBox 0 0 330 132 == bridge inner box (popup 360 - 2*15 padding). */
+  .bridge svg { position: absolute; left: 0; top: 0; width: 330px; height: 132px; }
+
+  /* node labels */
+  .node-tag {
+    position: absolute; bottom: 11px; font-size: 8.5px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute-2);
+    transition: color .4s;
+  }
+  .node-tag.l { left: 18px; }
+  .node-tag.r { right: 18px; text-align: right; }
+  body[data-state="listening"] .node-tag.l,
+  body[data-state="translating"] .node-tag.l { color: var(--cyan-soft); }
+  body[data-state="translating"] .node-tag.r { color: var(--amber); }
+
+  /* start control sits centered on the bridge */
+  .start {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 60px; height: 60px; border-radius: 50%;
+    border: none; cursor: pointer; background: none;
+    display: grid; place-items: center; z-index: 5;
+  }
+  .start .core {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: radial-gradient(circle at 35% 30%, #2a1c66, #120a30 70%);
+    border: 1px solid rgba(0,229,255,0.4);
+    box-shadow: inset 0 0 18px rgba(0,229,255,0.25), 0 0 22px -4px rgba(0,229,255,0.5);
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease); z-index: 2;
+  }
+  /* glyph is a single filled shape morphed via clip-path: the play triangle
+     is a 4-point polygon (tip doubled) so it tweens smoothly into the stop
+     square — no hard swap. */
+  .start .glyph {
+    width: 17px; height: 17px; margin-left: 2px;
+    background: var(--cyan-soft); filter: drop-shadow(0 0 6px var(--cyan));
+    clip-path: polygon(32% 20%, 32% 80%, 80% 50%, 80% 50%);
+    transition: clip-path .42s var(--ease), margin-left .42s var(--ease), background .3s;
+  }
+  .start .ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--cyan); opacity: 0; }
+  body.active .start .ring   { animation: pulsering 2s var(--ease) infinite; }
+  body.active .start .ring.b { animation-delay: 1s; }
+  @keyframes pulsering { 0% { opacity: 0.7; transform: scale(0.85); } 100% { opacity: 0; transform: scale(1.7); } }
+  body.active .start .core {
+    box-shadow: inset 0 0 22px rgba(0,229,255,0.5), 0 0 36px -2px rgba(0,229,255,0.75);
+    animation: charge 1.6s ease-in-out infinite;
+  }
+  @keyframes charge { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+  body.active .start .glyph {
+    clip-path: polygon(23% 23%, 23% 77%, 77% 77%, 77% 23%);
+    margin-left: 0;
+  }
+  .start:hover .core { transform: scale(1.06); }
+  .start:active .core { transform: scale(0.94); }
+
+  .bridge-cta {
+    position: absolute; left: 0; right: 0; bottom: 32px; text-align: center;
+    font-size: 11px; font-weight: 600; color: var(--mute); pointer-events: none;
+    letter-spacing: -0.01em; transition: color .3s;
+  }
+  body.active .bridge-cta { color: var(--cyan-soft); }
+
+  /* ====================== CONFIG GRID ====================== */
+  .scroll { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 9px; }
+
+  /* control deck — the config panels threaded by a vertical neural rail that
+     continues the synapse motif down from the bridge. The signal that fires
+     ACROSS the bridge now also travels DOWN through the controls. */
+  .deck { position: relative; display: flex; flex-direction: column; gap: 8px; padding-right: 16px; }
+  /* the rail descends from under the EN (output) node: the signal arrives amber
+     at the bridge's right edge, then flows down and cools through the controls. */
+  .rail {
+    position: absolute; right: 5px; top: 4px; bottom: 4px; width: 1.5px; border-radius: 2px;
+    background: linear-gradient(180deg, var(--amber) 0%, var(--violet) 48%, rgba(0,229,255,0.12) 100%);
+    opacity: 0.32; transition: opacity .45s var(--ease);
+  }
+  body.active .rail { opacity: 0.72; }
+  /* the down-packet is a real element driven by JS (WAAPI), fired by the SAME
+     event as the bridge — a visible hand-off from the horizontal packet to the
+     vertical one, not a free-running loop. */
+  .rail-pkt {
+    position: absolute; left: -1.5px; right: -1.5px; top: 0; height: 22px; border-radius: 3px;
+    background: linear-gradient(180deg, transparent, var(--amber-hot), transparent);
+    filter: blur(1px); opacity: 0; pointer-events: none; will-change: transform, opacity;
+  }
+  /* tap nodes where each panel meets the rail (right gutter, under the EN node) */
+  .deck > .panel::before {
+    content: ""; position: absolute; right: -12px; top: 17px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0,229,255,0.10); opacity: 0.5;
+    transition: opacity .45s var(--ease), box-shadow .45s var(--ease);
+  }
+  body.active .deck > .panel::before { opacity: 1; box-shadow: 0 0 7px 1px var(--cyan), 0 0 0 3px rgba(0,229,255,0.14); }
+  .deck > .panel.source::before {
+    width: 7px; height: 7px; right: -12.5px; background: var(--cyan-soft); opacity: 0.9;
+    box-shadow: 0 0 7px 1px var(--cyan), 0 0 0 3px rgba(0,229,255,0.16);
+  }
+
+  /* secondary config panels — lighter, receding */
+  .panel {
+    position: relative;
+    background: var(--glass-1); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--r-md); padding: 9px 11px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  /* primary source/audio panel — heavier, foregrounded with a cyan edge */
+  .panel.source {
+    background: linear-gradient(150deg, rgba(0,229,255,0.05), var(--glass-1));
+    border: 1px solid rgba(0,229,255,0.25);
+    border-radius: var(--r-xl);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+                0 8px 22px -16px rgba(0,229,255,0.5);
+    padding: 11px 13px;
+  }
+  /* inner controls round tighter than their panels */
+  .panel .seg, .panel select { border-radius: var(--r-sm); }
+
+  .seg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .seg-row + .seg-row { margin-top: 8px; }
+  .lbl {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.13em;
+    color: var(--mute-2); text-transform: uppercase; display: flex; align-items: center; gap: 5px;
+  }
+  .lbl .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--cyan); opacity: .6; }
+
+  .seg {
+    display: inline-flex; padding: 2px; gap: 2px;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.05); border-radius: 9px;
+  }
+  .seg button {
+    font-family: var(--ff); font-size: 10.5px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--mute); cursor: pointer; background: transparent; border: none;
+    padding: 5px 10px; border-radius: 7px; transition: all .25s var(--ease); white-space: nowrap;
+  }
+  .seg button:hover { color: var(--white); }
+  .seg button.on { color: var(--void); background: linear-gradient(180deg, var(--cyan-soft), var(--cyan)); box-shadow: 0 0 12px -2px rgba(0,229,255,0.6); }
+  .seg.amber button.on { background: linear-gradient(180deg, var(--amber), var(--amber-hot)); box-shadow: 0 0 12px -2px rgba(255,138,60,0.6); }
+
+  .sel { position: relative; }
+  select {
+    appearance: none; -webkit-appearance: none;
+    font-family: var(--ff); font-size: 10.5px; font-weight: 600; color: var(--white); cursor: pointer;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    padding: 6px 26px 6px 10px; transition: border-color .25s, box-shadow .25s;
+  }
+  select:hover { border-color: var(--glass-edge-hot); box-shadow: 0 0 0 3px rgba(0,229,255,0.07); }
+  select:focus { outline: none; border-color: var(--cyan); }
+  select option { background: var(--void-2); color: var(--white); }
+  .sel::after {
+    content: ""; position: absolute; right: 10px; top: 50%;
+    width: 5px; height: 5px; pointer-events: none;
+    border-right: 1.5px solid var(--cyan); border-bottom: 1.5px solid var(--cyan);
+    transform: translateY(-65%) rotate(45deg);
+  }
+
+  .lang-flow { display: flex; align-items: center; gap: 8px; }
+  .lang-flow .sel { flex: 1; }
+  .lang-flow select { width: 100%; text-align: center; padding-left: 14px; }
+  .arrow { flex-shrink: 0; color: var(--cyan); opacity: .8; display: grid; place-items: center; }
+  .arrow svg { width: 16px; height: 16px; }
+
+  .tts { display: flex; flex-direction: column; gap: 9px; }
+  .tts-top { display: flex; align-items: center; gap: 8px; }
+  .tts-top .sel { flex: 1; }
+  .tts-top select { width: 100%; }
+  .mute {
+    flex-shrink: 0; width: 32px; height: 30px; border-radius: 8px;
+    background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer; display: grid; place-items: center; transition: all .25s var(--ease);
+  }
+  .mute svg { width: 16px; height: 16px; }
+  .mute .spk { stroke: var(--cyan-soft); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  /* the sound-wave arcs and the mute slash both animate on toggle */
+  .mute .wv { transition: opacity .28s var(--ease), transform .28s var(--ease); transform-origin: 15px 12px; }
+  .mute .slash {
+    stroke: var(--rose); stroke-width: 1.8; stroke-linecap: round;
+    stroke-dasharray: 22; stroke-dashoffset: 22; opacity: 0;
+    transition: stroke-dashoffset .3s var(--ease), opacity .2s;
+  }
+  .mute:hover { border-color: var(--glass-edge-hot); }
+  .mute.muted { background: rgba(255,93,115,0.12); border-color: rgba(255,93,115,0.4); }
+  .mute.muted .spk { stroke: var(--rose); }
+  .mute.muted .wv { opacity: 0; transform: scale(0.4); }
+  .mute.muted .slash { stroke-dashoffset: 0; opacity: 1; }
+
+  .speed { display: flex; align-items: center; gap: 9px; }
+  .speed .lbl { flex-shrink: 0; }
+  .range { flex: 1; position: relative; height: 4px; }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px; border-radius: 4px; cursor: pointer;
+    background: linear-gradient(90deg, var(--cyan) var(--fill,40%), rgba(255,255,255,0.1) var(--fill,40%));
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 13px; height: 13px; border-radius: 50%; background: var(--white);
+    box-shadow: 0 0 0 3px rgba(0,229,255,0.25), 0 0 8px var(--cyan); transition: transform .15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .speed-val {
+    flex-shrink: 0; font-family: var(--mono); font-size: 10.5px;
+    color: var(--cyan-soft); font-weight: 600; width: 34px; text-align: right;
+  }
+
+  /* ===================== TRANSCRIPT PREVIEW ===================== */
+  .transcript {
+    position: relative; flex: 1; min-height: 52px;
+    background: linear-gradient(180deg, rgba(0,229,255,0.04), transparent), var(--glass-1);
+    border: 1px solid var(--glass-edge); border-radius: var(--r-lg);
+    padding: 24px 12px 11px; overflow-y: auto; overflow-x: hidden;
+  }
+  .transcript .tag {
+    position: absolute; top: 8px; right: 8px; z-index: 3;
+    font-size: 8px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--cyan); background: rgba(0,229,255,0.12);
+    border: 1px solid rgba(0,229,255,0.22);
+    padding: 3px 8px; border-radius: var(--r-sm); text-transform: uppercase;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  /* thin custom scrollbar */
+  .transcript::-webkit-scrollbar { width: 4px; }
+  .transcript::-webkit-scrollbar-track { background: transparent; }
+  .transcript::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.28); border-radius: 4px; }
+  .transcript::-webkit-scrollbar-thumb:hover { background: rgba(0,229,255,0.5); }
+  .transcript { scrollbar-width: thin; scrollbar-color: rgba(0,229,255,0.28) transparent; }
+
+  .line { display: flex; flex-direction: column; gap: 2px; }
+  .line + .line { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .line .vi { font-size: 11px; color: var(--mute); font-weight: 500; line-height: 1.35; }
+  .line .en { font-size: 12.5px; color: var(--white); font-weight: 550; letter-spacing: -0.01em; line-height: 1.35; }
+
+  /* token reveal — temporal echo: word condenses from a soft cloud.
+     blur kept low (4px) — blur is the costliest compositor filter and many
+     tokens can animate at once. */
+  .tok { opacity: 0; display: inline-block; filter: blur(4px); transform: scale(1.18); will-change: filter, transform, opacity; }
+  .tok.in { animation: tokin .32s var(--ease) forwards; }
+  @keyframes tokin { to { opacity: 1; filter: blur(0); transform: scale(1); will-change: auto; } }
+
+  /* ===================== FOOTER / DEBUG ===================== */
+  footer { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding-top: 1px; }
+  .toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; }
+  .switch {
+    width: 30px; height: 17px; border-radius: 100px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.06);
+    position: relative; transition: background .3s var(--ease);
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 1.5px; left: 1.5px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--mute); transition: all .3s var(--ease);
+  }
+  .toggle.on .switch { background: rgba(0,229,255,0.25); border-color: var(--cyan); }
+  .toggle.on .switch::after { left: 14px; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .toggle .t-lbl { font-size: 10px; font-weight: 600; color: var(--mute); letter-spacing: 0.02em; }
+
+  .metrics { display: flex; gap: 11px; opacity: 0; max-width: 0; overflow: hidden; transition: opacity .35s, max-width .35s var(--ease); }
+  .metrics.show { opacity: 1; max-width: 220px; }
+  .metric { display: flex; flex-direction: column; align-items: flex-end; }
+  .metric b { font-family: var(--mono); font-size: 11px; color: var(--cyan-soft); font-weight: 600; line-height: 1; }
+  .metric span { font-size: 7.5px; color: var(--mute-2); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .metric b.warn { color: var(--amber); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .tok { opacity: 1; filter: none; transform: none; }
+  }
+</style>
+</head>
+<body data-state="idle">
+  <div class="bg-field"></div>
+  <div class="aurora"></div>
+  <div class="aurora two"></div>
+
+  <div class="app">
+    <!-- HEADER -->
+    <header>
+      <div class="brand">
+        <div class="mark">
+          <svg viewBox="0 0 30 30" fill="none">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#5cf2ff"/>
+                <stop offset="1" stop-color="#a35cff"/>
+              </linearGradient>
+            </defs>
+            <path d="M6 19 Q9 8 15 15 Q21 22 24 11" stroke="url(#g1)" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="15" cy="15" r="13" stroke="#00e5ff" stroke-width="1" opacity="0.25"/>
+            <circle cx="24" cy="11" r="2.2" fill="#5cf2ff"/>
+            <circle cx="6" cy="19" r="2.2" fill="#a35cff"/>
+          </svg>
+        </div>
+        <div class="wordmark">
+          <b>SmartGen</b>
+          <span>Live Translate</span>
+        </div>
+      </div>
+      <div class="status">
+        <div class="orb"></div>
+        <div class="status-text" id="statusText">Idle</div>
+      </div>
+    </header>
+
+    <!-- ===== SYNAPSE BRIDGE: two nodes joined by a living neural line ===== -->
+    <div class="bridge" id="bridge">
+      <svg viewBox="0 0 330 132" width="330" height="132" preserveAspectRatio="xMidYMid meet" id="bridgeSvg">
+        <defs>
+          <radialGradient id="nodeL" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#5cf2ff"/>
+            <stop offset="0.55" stop-color="#00e5ff"/>
+            <stop offset="1" stop-color="#00e5ff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="nodeR" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0" stop-color="#ffd9a0"/>
+            <stop offset="0.55" stop-color="#ff8a3c"/>
+            <stop offset="1" stop-color="#ff8a3c" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="wire" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#00e5ff"/>
+            <stop offset="0.5" stop-color="#a35cff"/>
+            <stop offset="1" stop-color="#ff8a3c"/>
+          </linearGradient>
+          <filter id="glow" x="-60%" y="-200%" width="220%" height="500%">
+            <feGaussianBlur stdDeviation="2.4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- the synaptic dendrite wire (organic curve) -->
+        <path id="wirePath" d="M 40 66 C 110 30, 140 100, 165 66 C 195 28, 230 104, 290 66"
+              stroke="url(#wire)" stroke-width="1.6" fill="none" opacity="0.32"/>
+        <!-- trailing momentum dash (faint, lags behind) -->
+        <path id="fireTrail" d="M 40 66 C 110 30, 140 100, 165 66 C 195 28, 230 104, 290 66"
+              stroke="url(#wire)" stroke-width="2" fill="none" stroke-linecap="round"
+              opacity="0" filter="url(#glow)"/>
+        <!-- the firing packet: a short bright dash that travels the wire -->
+        <path id="firePath" d="M 40 66 C 110 30, 140 100, 165 66 C 195 28, 230 104, 290 66"
+              stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"
+              opacity="0" filter="url(#glow)"/>
+
+        <!-- node halos -->
+        <circle id="haloL" cx="40" cy="66" r="20" fill="url(#nodeL)" opacity="0.18"/>
+        <circle id="haloR" cx="290" cy="66" r="20" fill="url(#nodeR)" opacity="0.18"/>
+        <!-- node cores -->
+        <circle id="dotL" cx="40" cy="66" r="5.5" fill="#5cf2ff" opacity="0.45"/>
+        <circle id="dotR" cx="290" cy="66" r="5.5" fill="#ff8a3c" opacity="0.45"/>
+      </svg>
+
+      <span class="node-tag l">vi · voice</span>
+      <span class="node-tag r">en · output</span>
+
+      <button class="start" id="startBtn" aria-label="Start translation">
+        <span class="ring"></span>
+        <span class="ring b"></span>
+        <span class="core"><span class="glyph"></span></span>
+      </button>
+      <div class="bridge-cta" id="bridgeCta">Tap the core to begin</div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="scroll">
+      <!-- control deck: panels threaded by the vertical neural rail -->
+      <div class="deck">
+        <div class="rail"></div>
+      <!-- Source + STT (primary panel) -->
+      <div class="panel source">
+        <div class="seg-row">
+          <span class="lbl"><span class="dot"></span>Source</span>
+          <div class="seg" data-group="source">
+            <button class="on" data-val="tab">Tab Audio</button>
+            <button data-val="mic">Mic</button>
+          </div>
+        </div>
+        <div class="seg-row">
+          <span class="lbl"><span class="dot"></span>STT Engine</span>
+          <div class="seg amber" data-group="stt">
+            <button class="on" data-val="phowhisper">PhoWhisper</button>
+            <button data-val="sherpa">Sherpa</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Models + langs -->
+      <div class="panel">
+        <div class="seg-row">
+          <span class="lbl"><span class="dot"></span>Translation</span>
+          <div class="sel">
+            <select id="mtModel">
+              <option value="marian">Marian · 77M</option>
+              <option value="nllb-600">NLLB · 600M</option>
+              <option value="nllb-1.3b">NLLB · 1.3B</option>
+            </select>
+          </div>
+        </div>
+        <div class="seg-row">
+          <span class="lbl"><span class="dot"></span>Direction</span>
+          <div class="lang-flow">
+            <div class="sel">
+              <select id="srcLang">
+                <option value="vi">VI</option><option value="en">EN</option>
+                <option value="zh">ZH</option><option value="ja">JA</option><option value="ko">KO</option>
+              </select>
+            </div>
+            <span class="arrow">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="sel">
+              <select id="tgtLang">
+                <option value="en">EN</option><option value="vi">VI</option>
+                <option value="zh">ZH</option><option value="ja">JA</option><option value="ko">KO</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TTS -->
+      <div class="panel tts">
+        <div class="tts-top">
+          <span class="lbl"><span class="dot"></span>Voice</span>
+          <div class="sel">
+            <select id="ttsVoice">
+              <option value="aria">Aria · Neural</option>
+              <option value="lumen">Lumen · Warm</option>
+              <option value="vox">Vox · Crisp</option>
+            </select>
+          </div>
+          <button class="mute" id="muteBtn" aria-label="Mute TTS" title="Mute TTS" aria-pressed="false">
+            <svg viewBox="0 0 24 24">
+              <path class="spk" d="M4 9v6h4l5 4V5L8 9H4z"/>
+              <path class="spk wv" d="M16 9c1.3 1.1 1.3 4.9 0 6"/>
+              <path class="spk wv" d="M19 7c2.2 1.8 2.2 8.2 0 10" style="transform-origin:19px 12px"/>
+              <path class="slash" d="M3 3l18 18"/>
+            </svg>
+          </button>
+        </div>
+        <div class="speed">
+          <span class="lbl">Speed</span>
+          <div class="range"><input type="range" id="speed" min="0.5" max="2" step="0.1" value="1.0" /></div>
+          <span class="speed-val" id="speedVal">1.0×</span>
+        </div>
+      </div>
+      </div><!-- /.deck -->
+
+      <!-- TRANSCRIPT PREVIEW -->
+      <div class="transcript" id="transcript">
+        <span class="tag">Live</span>
+        <div class="line">
+          <span class="vi">Xin chào, rất vui được gặp mọi người hôm nay.</span>
+          <span class="en">Hello, glad to meet everyone today.</span>
+        </div>
+        <div class="line">
+          <span class="vi">Chúng ta sẽ bắt đầu cuộc họp ngay bây giờ.</span>
+          <span class="en">We will start the meeting right now.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="toggle" id="debugToggle">
+        <div class="switch"></div>
+        <span class="t-lbl">Debug</span>
+      </div>
+      <div class="metrics" id="metrics">
+        <div class="metric"><b id="mStt">120</b><span>STT ms</span></div>
+        <div class="metric"><b id="mMt">85</b><span>MT ms</span></div>
+        <div class="metric"><b id="mE2e" class="warn">310</b><span>E2E ms</span></div>
+      </div>
+    </footer>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  const body = document.body;
+  const startBtn = document.getElementById("startBtn");
+  const statusText = document.getElementById("statusText");
+  const bridgeCta = document.getElementById("bridgeCta");
+
+  // -------- config registry: selected values for the WS handshake --------
+  const config = {
+    source: "tab",      // tab | mic
+    stt: "phowhisper",  // phowhisper | sherpa
+  };
+
+  // -------- synapse firing: a packet TRAVELS left node -> right node --------
+  // A short bright dash crosses the wire, with a faint trailing dash for
+  // momentum. On arrival, the right (EN) node core pulses + flashes.
+  const firePath  = document.getElementById("firePath");
+  const fireTrail = document.getElementById("fireTrail");
+  const dotR      = document.getElementById("dotR");
+  const haloR     = document.getElementById("haloR");
+  const pathLen   = firePath.getTotalLength();
+
+  const PACKET = 14;     // bright leading dash length
+  const TRAIL  = 40;     // faint trailing dash length
+  const FIRE_MS = 620;
+
+  // dasharray = visible dash + a gap as long as the path so only one dash shows
+  firePath.style.strokeDasharray  = `${PACKET} ${pathLen}`;
+  fireTrail.style.strokeDasharray = `${TRAIL} ${pathLen}`;
+
+  let fireAnim = null, trailAnim = null, arriveTimer = null;
+  function fireSynapse() {
+    if (fireAnim) fireAnim.cancel();
+    if (trailAnim) trailAnim.cancel();
+    clearTimeout(arriveTimer);
+
+    // packet enters from the left edge and exits past the right edge
+    firePath.style.opacity = "1";
+    fireAnim = firePath.animate(
+      [
+        { strokeDashoffset: pathLen,     opacity: 0 },
+        { strokeDashoffset: pathLen * 0.85, opacity: 1, offset: 0.12 },
+        { strokeDashoffset: -PACKET * 0.6,  opacity: 1, offset: 0.88 },
+        { strokeDashoffset: -PACKET,        opacity: 0 }
+      ],
+      { duration: FIRE_MS, easing: "cubic-bezier(0.22,0.7,0.2,1)" }
+    );
+    fireAnim.onfinish = () => { firePath.style.opacity = "0"; };
+
+    // trailing momentum dash: lags 100ms, dimmer
+    fireTrail.style.opacity = "0.25";
+    trailAnim = fireTrail.animate(
+      [
+        { strokeDashoffset: pathLen,  opacity: 0 },
+        { strokeDashoffset: pathLen,  opacity: 0, offset: 0.16 },
+        { strokeDashoffset: pathLen * 0.8, opacity: 0.25, offset: 0.3 },
+        { strokeDashoffset: -TRAIL,   opacity: 0 }
+      ],
+      { duration: FIRE_MS + 60, easing: "cubic-bezier(0.22,0.7,0.2,1)" }
+    );
+    trailAnim.onfinish = () => { fireTrail.style.opacity = "0"; };
+
+    // arrival pulse on the EN node, timed to when the packet reaches it
+    arriveTimer = setTimeout(pulseArrival, FIRE_MS * 0.82);
+  }
+
+  function pulseArrival() {
+    dotR.animate(
+      [
+        { transform: "scale(1)",  opacity: 0.45 },
+        { transform: "scale(1.6)", opacity: 1 },
+        { transform: "scale(1)",  opacity: 0.45 }
+      ],
+      { duration: 180, easing: "cubic-bezier(0.16,1,0.3,1)", transformBox: "fill-box", transformOrigin: "center" }
+    );
+    haloR.animate(
+      [
+        { opacity: 0.18, transform: "scale(1)" },
+        { opacity: 0.55, transform: "scale(1.35)" },
+        { opacity: 0.18, transform: "scale(1)" }
+      ],
+      { duration: 280, easing: "ease-out", transformBox: "fill-box", transformOrigin: "center" }
+    );
+  }
+
+  // -------- state machine --------
+  let state = "idle";
+  let active = false;
+  let ws = null, demoTimer = null;
+
+  function setState(s) {
+    state = s;
+    body.dataset.state = s;
+    statusText.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function setActiveUI(on) {
+    active = on;
+    body.classList.toggle("active", on);
+    bridgeCta.textContent = on ? "Bridge active · capturing" : "Tap the core to begin";
+  }
+
+  // -------- WebSocket: send full config in handshake --------
+  function buildConfigMessage() {
+    return {
+      type: "config",
+      src: document.getElementById("srcLang").value,
+      tgt: document.getElementById("tgtLang").value,
+      backend: config.stt,                                  // STT engine
+      model: config.source,                                 // audio source
+      translate_model: document.getElementById("mtModel").value,
+      voice: document.getElementById("ttsVoice").value,
+      muted: muteBtn.classList.contains("muted"),
+      speed: parseFloat(document.getElementById("speed").value)
+    };
+  }
+
+  function connect() {
+    setState("connecting");
+    try {
+      ws = new WebSocket("ws://localhost:8000/ws");
+      ws.onopen = () => {
+        ws.send(JSON.stringify(buildConfigMessage()));
+        setState("listening");
+      };
+      ws.onmessage = (ev) => handleMessage(ev.data);
+      ws.onerror = () => { startDemo(); };
+      ws.onclose = () => { if (active) startDemo(); };
+      setTimeout(() => {
+        if (active && ws && ws.readyState !== WebSocket.OPEN) startDemo();
+      }, 1200);
+    } catch (e) { startDemo(); }
+  }
+
+  function handleMessage(data) {
+    let msg;
+    try { msg = JSON.parse(data); } catch { return; }
+    if (msg.type === "partial" || msg.type === "final") {
+      setState(msg.type === "final" ? "listening" : "translating");
+      if (msg.type !== "final") fireSynapse();
+      pushLine(msg.vi || "", msg.en || "");
+    }
+    if (msg.metrics) updateMetrics(msg.metrics);
+  }
+
+  // -------- demo loop (alive without server) --------
+  const SAMPLES = [
+    ["Cảm ơn bạn đã tham gia cuộc họp này.", "Thank you for joining this meeting."],
+    ["Hôm nay chúng ta bàn về kế hoạch quý tới.", "Today we discuss next quarter's plan."],
+    ["Mọi người có câu hỏi nào không?", "Does anyone have any questions?"],
+    ["Tôi nghĩ ý tưởng này rất tiềm năng.", "I think this idea has great potential."],
+    ["Hãy chuyển sang phần tiếp theo nhé.", "Let's move on to the next part."],
+  ];
+  let si = 0;
+  function startDemo() {
+    if (demoTimer) return;
+    setState("listening");
+    const tick = () => {
+      const [vi, en] = SAMPLES[si % SAMPLES.length]; si++;
+      setState("translating");
+      fireSynapse();
+      pushLine(vi, en);
+      const stt = 90 + (Math.random()*70|0);
+      const mt = 50 + (Math.random()*60|0);
+      updateMetrics({ stt, mt, e2e: stt + mt + 90 });
+      setTimeout(() => { if (active) setState("listening"); }, 1500);
+    };
+    tick();
+    demoTimer = setInterval(() => { if (active) tick(); }, 3200);
+  }
+  function stopDemo() { clearInterval(demoTimer); demoTimer = null; }
+
+  // -------- transcript: prepend newest line, temporal-echo reveal --------
+  const transcript = document.getElementById("transcript");
+  const tagEl = transcript.querySelector(".tag");
+  const MAX_LINES = 40;
+
+  function pushLine(vi, en) {
+    const line = document.createElement("div");
+    line.className = "line";
+    const viEl = document.createElement("span"); viEl.className = "vi"; viEl.textContent = vi;
+    const enEl = document.createElement("span"); enEl.className = "en";
+    line.appendChild(viEl); line.appendChild(enEl);
+    tagEl.insertAdjacentElement("afterend", line);
+    revealTokens(enEl, en);
+    // cap history — clear the removed line's pending reveal timers
+    const lines = transcript.querySelectorAll(".line");
+    if (lines.length > MAX_LINES) {
+      const old = lines[lines.length - 1];
+      const t = revealTimers.get(old.querySelector(".en"));
+      if (t) t.forEach(clearTimeout);
+      old.remove();
+    }
+    transcript.scrollTop = 0;
+  }
+
+  // track reveal timers per element so replaced/removed lines don't keep
+  // animating blurred tokens off-screen (perf).
+  const revealTimers = new WeakMap();
+  function revealTokens(el, text) {
+    const prev = revealTimers.get(el);
+    if (prev) prev.forEach(clearTimeout);
+    el.innerHTML = "";
+    const words = text.split(" ");
+    // cap total reveal duration to ~600ms regardless of length
+    const stagger = Math.min(55, 600 / Math.max(words.length, 1));
+    const timers = [];
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "tok";
+      span.textContent = w + (i < words.length - 1 ? " " : "");
+      el.appendChild(span);
+      timers.push(setTimeout(() => span.classList.add("in"), stagger * i));
+    });
+    revealTimers.set(el, timers);
+  }
+
+  // -------- start/stop --------
+  startBtn.addEventListener("click", () => {
+    if (!active) { setActiveUI(true); connect(); }
+    else {
+      setActiveUI(false); stopDemo();
+      if (ws) { try { ws.close(); } catch {} ws = null; }
+      setState("idle");
+    }
+  });
+
+  // -------- segmented controls (now wired to config + WS) --------
+  document.querySelectorAll(".seg").forEach(seg => {
+    const group = seg.dataset.group;
+    seg.addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      seg.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      if (group) config[group] = btn.dataset.val;
+      pushConfigIfLive();
+    });
+  });
+
+  // -------- selects also push live config when running --------
+  ["mtModel","srcLang","tgtLang","ttsVoice","speed"].forEach(id => {
+    document.getElementById(id).addEventListener("change", pushConfigIfLive);
+  });
+
+  function pushConfigIfLive() {
+    const cfg = buildConfigMessage();
+    // share session config with the overlay via chrome.storage.local
+    try {
+      if (window.chrome && chrome.storage && chrome.storage.local) {
+        chrome.storage.local.set({ sgConfig: {
+          src: cfg.src, tgt: cfg.tgt, stt: cfg.backend, source: cfg.model,
+          translate_model: cfg.translate_model, voice: cfg.voice,
+          muted: cfg.muted, speed: cfg.speed
+        }});
+      }
+    } catch {}
+    if (active && ws && ws.readyState === WebSocket.OPEN) {
+      try { ws.send(JSON.stringify(cfg)); } catch {}
+    }
+  }
+
+  // -------- mute (animated icon) --------
+  const muteBtn = document.getElementById("muteBtn");
+  muteBtn.addEventListener("click", () => {
+    const muted = muteBtn.classList.toggle("muted");
+    muteBtn.setAttribute("aria-pressed", String(muted));
+    pushConfigIfLive();
+  });
+
+  // -------- speed slider --------
+  const speed = document.getElementById("speed");
+  const speedVal = document.getElementById("speedVal");
+  function syncSpeed() {
+    const v = parseFloat(speed.value).toFixed(1);
+    speedVal.textContent = v + "×";
+    const pct = ((speed.value - speed.min) / (speed.max - speed.min)) * 100;
+    speed.style.setProperty("--fill", pct + "%");
+  }
+  speed.addEventListener("input", syncSpeed);
+  syncSpeed();
+
+  // -------- debug toggle --------
+  const debugToggle = document.getElementById("debugToggle");
+  const metrics = document.getElementById("metrics");
+  debugToggle.addEventListener("click", () => {
+    debugToggle.classList.toggle("on");
+    metrics.classList.toggle("show");
+  });
+
+  function updateMetrics({ stt, mt, e2e }) {
+    document.getElementById("mStt").textContent = stt;
+    document.getElementById("mMt").textContent = mt;
+    const e = document.getElementById("mE2e");
+    e.textContent = e2e;
+    e.classList.toggle("warn", e2e > 300);
+  }
+})();
+</script>
+</body>
+</html>

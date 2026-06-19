@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SmartGen Overlay</title>
+<style>
+  /* ============================================================
+     SmartGen — floating caption overlay.
+     Carries the Synapse Bridge motif: a living neural wire that
+     fires left(vi) -> right(en) every time a line is translated.
+     ============================================================ */
+
+  :root {
+    --void:        #06060b;
+    --indigo:      #1f1450;
+    --cyan:        #00e5ff;
+    --cyan-soft:   #5cf2ff;
+    --violet:      #a35cff;
+    --amber:       #ffb347;
+    --amber-hot:   #ff8a3c;
+    --white:       #f4f7ff;
+    --mute:        #8d92ad;
+    --mute-2:      #5c6079;
+
+    --glass-edge: rgba(255,255,255,0.12);
+    --glass-edge-hot: rgba(0,229,255,0.4);
+    --ff: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* simulated host page so the overlay can be judged in context */
+  html, body { height: 100%; }
+  body {
+    font-family: var(--ff);
+    background:
+      radial-gradient(80% 60% at 30% 20%, #1c2030 0%, transparent 60%),
+      linear-gradient(135deg, #14161e 0%, #0c0d13 100%);
+    overflow: hidden; -webkit-font-smoothing: antialiased;
+  }
+  .host-hint {
+    position: absolute; top: 24px; left: 28px;
+    color: rgba(255,255,255,0.18); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; user-select: none;
+  }
+  .host-hint b { color: rgba(255,255,255,0.32); font-weight: 700; }
+  .host-grid {
+    position: absolute; inset: 70px 24px 24px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 14px; opacity: 0.5;
+  }
+  .tile {
+    border-radius: 14px; background: linear-gradient(160deg,#1a1d28,#101219);
+    border: 1px solid rgba(255,255,255,0.04); display: grid; place-items: center;
+  }
+  .tile .av {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #2a2f44, #161925);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ====================== OVERLAY ROOT ====================== */
+  #sg-overlay {
+    position: fixed; z-index: 999999;
+    left: 0; top: 0;
+    width: 384px; font-family: var(--ff); color: var(--white);
+    user-select: none; transition: width .45s var(--ease);
+    will-change: transform;
+  }
+  #sg-overlay.collapsed { width: 308px; }
+
+  .shell {
+    position: relative; border-radius: 20px;
+    background: linear-gradient(165deg, rgba(31,20,80,0.55), rgba(10,10,18,0.62));
+    border: 1px solid var(--glass-edge);
+    backdrop-filter: blur(26px) saturate(1.4); -webkit-backdrop-filter: blur(26px) saturate(1.4);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.08),
+      0 24px 60px -20px rgba(0,0,0,0.85),
+      0 0 0 1px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  .shell::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity: 0.35; transition: opacity .4s, background .4s;
+  }
+  #sg-overlay[data-state="listening"] .shell::before { opacity: 0.9; }
+  #sg-overlay[data-state="translating"] .shell::before {
+    background: linear-gradient(90deg, transparent, var(--amber), transparent); opacity: 1;
+  }
+
+  /* ---- the synapse wire runs behind the header as a living spine ---- */
+  .synapse {
+    position: absolute; top: 0; left: 0; right: 0; height: 48px;
+    pointer-events: none; opacity: 0.9;
+  }
+  .synapse svg { width: 100%; height: 100%; }
+
+  /* ---------------------- HEADER / DRAG ---------------------- */
+  .bar {
+    position: relative; display: flex; align-items: center; gap: 10px;
+    padding: 11px 12px; cursor: grab;
+  }
+  .bar:active { cursor: grabbing; }
+
+  .core { position: relative; flex-shrink: 0; width: 26px; height: 26px; display: grid; place-items: center; }
+  .core .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--mute-2); position: relative; z-index: 2; transition: background .4s;
+  }
+  .core .halo { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--cyan); opacity: 0; }
+  #sg-overlay[data-state="listening"] .core .dot { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+  #sg-overlay[data-state="listening"] .core .halo { animation: ripple 2s var(--ease) infinite; }
+  #sg-overlay[data-state="translating"] .core .dot { background: var(--amber-hot); box-shadow: 0 0 10px var(--amber-hot); }
+  #sg-overlay[data-state="translating"] .core .halo { border-color: var(--amber); animation: ripple 1.1s var(--ease) infinite; }
+  @keyframes ripple { 0% { opacity: .7; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.7); } }
+
+  .bar-title { display: flex; flex-direction: column; line-height: 1; flex: 1; min-width: 0; }
+  .bar-title b { font-size: 12px; font-weight: 700; letter-spacing: -0.02em; display: flex; align-items: center; gap: 6px; }
+  .bar-title .state {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+    color: var(--mute); text-transform: uppercase; margin-top: 4px; transition: color .3s;
+  }
+  #sg-overlay[data-state="listening"] .bar-title .state { color: var(--cyan-soft); }
+  #sg-overlay[data-state="translating"] .bar-title .state { color: var(--amber); }
+
+  .mini-wave { display: flex; align-items: center; gap: 2px; height: 14px; }
+  .mini-wave i { width: 2px; height: 3px; border-radius: 2px; background: var(--cyan-soft); opacity: .3; }
+  #sg-overlay[data-state="listening"] .mini-wave i,
+  #sg-overlay[data-state="translating"] .mini-wave i { opacity: 1; animation: mb .8s ease-in-out infinite; }
+  .mini-wave i:nth-child(1){animation-delay:0s}
+  .mini-wave i:nth-child(2){animation-delay:.15s}
+  .mini-wave i:nth-child(3){animation-delay:.3s}
+  .mini-wave i:nth-child(4){animation-delay:.1s}
+  .mini-wave i:nth-child(5){animation-delay:.22s}
+  @keyframes mb { 0%,100%{height:3px} 50%{height:14px} }
+
+  .bar-btns { display: flex; gap: 4px; flex-shrink: 0; }
+  .icon-btn {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+    display: grid; place-items: center; cursor: pointer; transition: all .22s var(--ease);
+  }
+  .icon-btn:hover { background: rgba(0,229,255,0.12); border-color: var(--glass-edge-hot); }
+  .icon-btn svg { width: 13px; height: 13px; stroke: var(--mute); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-btn:hover svg { stroke: var(--cyan-soft); }
+
+  /* mute button: animated speaker -> muted */
+  #muteBtn .wv { transition: opacity .28s var(--ease), transform .28s var(--ease); transform-origin: 13px 8px; }
+  #muteBtn .slash {
+    stroke: var(--amber-hot); stroke-dasharray: 18; stroke-dashoffset: 18; opacity: 0;
+    transition: stroke-dashoffset .3s var(--ease), opacity .2s;
+  }
+  #muteBtn.muted { background: rgba(255,138,60,0.14); border-color: rgba(255,138,60,0.4); }
+  #muteBtn.muted svg { stroke: var(--amber-hot); }
+  #muteBtn.muted .wv { opacity: 0; transform: scale(0.35); }
+  #muteBtn.muted .slash { stroke-dashoffset: 0; opacity: 1; }
+
+  #expandBtn svg { transition: transform .4s var(--ease); }
+  #sg-overlay.collapsed #expandBtn svg { transform: rotate(180deg); }
+
+  /* ---------------------- BODY (expandable) ---------------------- */
+  .body {
+    overflow: hidden; max-height: 340px;
+    transition: max-height .45s var(--ease), opacity .35s; opacity: 1;
+  }
+  #sg-overlay.collapsed .body { max-height: 0; opacity: 0; }
+
+  .panel { padding: 0 14px 14px; }
+  .divider { height: 1px; margin: 0 14px 12px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
+
+  /* scrolling caption stream */
+  .stream {
+    max-height: 210px; overflow-y: auto; overflow-x: hidden;
+    display: flex; flex-direction: column; gap: 9px; padding-right: 4px;
+  }
+  .stream::-webkit-scrollbar { width: 4px; }
+  .stream::-webkit-scrollbar-track { background: transparent; }
+  .stream::-webkit-scrollbar-thumb { background: rgba(0,229,255,0.28); border-radius: 4px; }
+  .stream::-webkit-scrollbar-thumb:hover { background: rgba(0,229,255,0.5); }
+  .stream { scrollbar-width: thin; scrollbar-color: rgba(0,229,255,0.28) transparent; }
+
+  .cap {
+    display: flex; flex-direction: column; gap: 5px;
+    padding: 12px 13px; border-radius: 14px;
+    background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+  }
+  .cap .role {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--mute-2);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .cap .role::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--mute); opacity: .7; }
+  .cap .role.en::before { background: var(--cyan); }
+  .cap .vi { font-size: 12.5px; font-weight: 500; color: var(--mute); letter-spacing: -0.01em; line-height: 1.4; }
+  .cap .en { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.015em; line-height: 1.35; }
+  /* newest entry gets a brief charged border */
+  .cap.fresh { animation: capglow 1.4s var(--ease) forwards; }
+  @keyframes capglow {
+    0% { border-color: rgba(0,229,255,0.55); box-shadow: 0 0 22px -8px rgba(0,229,255,0.7); }
+    100% { border-color: rgba(255,255,255,0.05); box-shadow: none; }
+  }
+
+  /* token reveal — temporal echo: each word condenses from a cloud.
+     blur kept low (5px) since it's the costliest compositor filter. */
+  .tok { opacity: 0; display: inline-block; filter: blur(5px); transform: scale(1.2); will-change: filter, transform, opacity; }
+  .tok.in { animation: tokin .3s var(--ease) forwards; }
+  @keyframes tokin { to { opacity: 1; filter: blur(0); transform: scale(1); will-change: auto; } }
+
+  /* ----- COLLAPSED live line ----- */
+  .collapsed-line { display: none; padding: 0 14px 13px; }
+  #sg-overlay.collapsed .collapsed-line { display: block; }
+  .collapsed-line .en {
+    font-size: 13.5px; font-weight: 600; color: var(--white);
+    letter-spacing: -0.01em; line-height: 1.35;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .collapsed-line .vi {
+    font-size: 10.5px; color: var(--mute-2); font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;
+  }
+
+  .foot { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px 0; }
+  .metrics { display: flex; gap: 14px; }
+  .metric { display: flex; align-items: baseline; gap: 4px; }
+  .metric b { font-family: var(--mono); font-size: 11px; color: var(--cyan-soft); font-weight: 600; }
+  .metric span { font-size: 8px; color: var(--mute-2); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brand-tag {
+    font-size: 8.5px; font-weight: 700; letter-spacing: 0.18em;
+    color: var(--mute-2); text-transform: uppercase; display: flex; align-items: center; gap: 5px;
+  }
+  .brand-tag .g { width: 5px; height: 5px; border-radius: 50%; background: linear-gradient(var(--cyan), var(--violet)); box-shadow: 0 0 6px var(--cyan); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .tok { opacity: 1; filter: none; transform: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="host-hint"><b>Google Meet</b> — Weekly Sync · 6 participants</div>
+  <div class="host-grid">
+    <div class="tile"><div class="av"></div></div>
+    <div class="tile"><div class="av"></div></div>
+    <div class="tile"><div class="av"></div></div>
+    <div class="tile"><div class="av"></div></div>
+  </div>
+
+  <!-- ===================== OVERLAY ===================== -->
+  <div id="sg-overlay" data-state="listening">
+    <div class="shell">
+      <!-- living synapse wire spanning the header -->
+      <div class="synapse">
+        <svg viewBox="0 0 384 48" preserveAspectRatio="none" id="synSvg">
+          <defs>
+            <linearGradient id="owire" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#00e5ff"/>
+              <stop offset="0.5" stop-color="#a35cff"/>
+              <stop offset="1" stop-color="#ff8a3c"/>
+            </linearGradient>
+            <filter id="oglow" x="-30%" y="-200%" width="160%" height="500%">
+              <feGaussianBlur stdDeviation="1.8" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path id="oWire" d="M 20 24 C 90 8, 130 40, 192 24 C 255 8, 300 40, 364 24"
+                stroke="url(#owire)" stroke-width="1.2" fill="none" opacity="0.25"/>
+          <!-- trailing momentum dash -->
+          <path id="oTrail" d="M 20 24 C 90 8, 130 40, 192 24 C 255 8, 300 40, 364 24"
+                stroke="url(#owire)" stroke-width="1.8" fill="none" stroke-linecap="round"
+                opacity="0" filter="url(#oglow)"/>
+          <!-- traveling packet -->
+          <path id="oFire" d="M 20 24 C 90 8, 130 40, 192 24 C 255 8, 300 40, 364 24"
+                stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"
+                opacity="0" filter="url(#oglow)"/>
+          <!-- EN-side arrival node (pulses when packet lands) -->
+          <circle id="oNodeR" cx="364" cy="24" r="3.5" fill="#ff8a3c" opacity="0"/>
+        </svg>
+      </div>
+
+      <!-- drag bar -->
+      <div class="bar" id="dragBar">
+        <div class="core"><span class="halo"></span><span class="dot"></span></div>
+        <div class="bar-title">
+          <b>SmartGen <span class="mini-wave"><i></i><i></i><i></i><i></i><i></i></span></b>
+          <span class="state" id="stateLabel">Listening</span>
+        </div>
+        <div class="bar-btns">
+          <div class="icon-btn" id="muteBtn" title="Mute TTS" aria-label="Mute TTS" aria-pressed="false">
+            <svg viewBox="0 0 16 16">
+              <path d="M3 6v4h2.5L9 13V3L5.5 6H3z" fill="none"/>
+              <path class="wv" d="M11 6c.9.8.9 3.2 0 4"/>
+              <path class="slash" d="M2 2l12 12" stroke="#ff8a3c" fill="none"/>
+            </svg>
+          </div>
+          <div class="icon-btn" id="expandBtn" title="Collapse / expand">
+            <svg viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+          </div>
+          <div class="icon-btn" id="closeBtn" title="Hide overlay">
+            <svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- collapsed single-line live caption -->
+      <div class="collapsed-line">
+        <div class="vi" id="cVi">Tôi nghĩ chúng ta nên thử cách tiếp cận mới.</div>
+        <div class="en" id="cEn">I think we should try a new approach.</div>
+      </div>
+
+      <!-- expanded full panel -->
+      <div class="body">
+        <div class="divider"></div>
+        <div class="panel">
+          <div class="stream" id="stream">
+            <!-- caption pairs injected here -->
+          </div>
+
+          <div class="foot">
+            <div class="metrics">
+              <div class="metric"><b id="mMt">68</b><span>MT</span></div>
+              <div class="metric"><b id="mE2e">240</b><span>E2E ms</span></div>
+            </div>
+            <div class="brand-tag"><span class="g"></span>SmartGen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  const overlay = document.getElementById("sg-overlay");
+  const dragBar = document.getElementById("dragBar");
+  const expandBtn = document.getElementById("expandBtn");
+  const closeBtn = document.getElementById("closeBtn");
+  const muteBtn = document.getElementById("muteBtn");
+  const stateLabel = document.getElementById("stateLabel");
+  const stream = document.getElementById("stream");
+
+  // ---------- synapse firing: a packet TRAVELS vi -> en across the wire ----------
+  const oFire   = document.getElementById("oFire");
+  const oTrail  = document.getElementById("oTrail");
+  const oNodeR  = document.getElementById("oNodeR");
+  const oLen    = oFire.getTotalLength();
+
+  const O_PACKET = 14, O_TRAIL = 40, O_FIRE_MS = 600;
+  oFire.style.strokeDasharray  = `${O_PACKET} ${oLen}`;
+  oTrail.style.strokeDasharray = `${O_TRAIL} ${oLen}`;
+
+  let fireAnim = null, trailAnim = null, arriveTimer = null;
+  function fireSynapse() {
+    if (fireAnim) fireAnim.cancel();
+    if (trailAnim) trailAnim.cancel();
+    clearTimeout(arriveTimer);
+
+    oFire.style.opacity = "1";
+    fireAnim = oFire.animate(
+      [
+        { strokeDashoffset: oLen,          opacity: 0 },
+        { strokeDashoffset: oLen * 0.85,   opacity: 1, offset: 0.12 },
+        { strokeDashoffset: -O_PACKET*0.6, opacity: 1, offset: 0.88 },
+        { strokeDashoffset: -O_PACKET,     opacity: 0 }
+      ],
+      { duration: O_FIRE_MS, easing: "cubic-bezier(0.22,0.7,0.2,1)" }
+    );
+    fireAnim.onfinish = () => { oFire.style.opacity = "0"; };
+
+    oTrail.style.opacity = "0.25";
+    trailAnim = oTrail.animate(
+      [
+        { strokeDashoffset: oLen,       opacity: 0 },
+        { strokeDashoffset: oLen,       opacity: 0, offset: 0.16 },
+        { strokeDashoffset: oLen * 0.8, opacity: 0.25, offset: 0.3 },
+        { strokeDashoffset: -O_TRAIL,   opacity: 0 }
+      ],
+      { duration: O_FIRE_MS + 60, easing: "cubic-bezier(0.22,0.7,0.2,1)" }
+    );
+    trailAnim.onfinish = () => { oTrail.style.opacity = "0"; };
+
+    arriveTimer = setTimeout(() => {
+      oNodeR.animate(
+        [
+          { transform: "scale(1)",   opacity: 0.9 },
+          { transform: "scale(1.6)", opacity: 1 },
+          { transform: "scale(1)",   opacity: 0 }
+        ],
+        { duration: 180, easing: "cubic-bezier(0.16,1,0.3,1)", transformBox: "fill-box", transformOrigin: "center" }
+      );
+    }, O_FIRE_MS * 0.82);
+  }
+
+  // ---------- expand / collapse ----------
+  let collapsed = false;
+  let userCollapsed = false;
+  function setCollapsed(v) { collapsed = v; overlay.classList.toggle("collapsed", v); }
+  expandBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setCollapsed(!collapsed);
+    userCollapsed = collapsed;
+  });
+  closeBtn.addEventListener("click", (e) => { e.stopPropagation(); overlay.style.display = "none"; });
+
+  // ---------- mute toggle (animated) ----------
+  muteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const muted = muteBtn.classList.toggle("muted");
+    muteBtn.setAttribute("aria-pressed", String(muted));
+    state.muted = muted;
+    pushConfigIfLive();
+  });
+
+  // ---------- dragging with viewport clamping ----------
+  // start anchored to bottom-right, then drag freely (clamped to viewport)
+  let tx = 0, ty = 0;
+  function place() {
+    const r = overlay.getBoundingClientRect();
+    tx = window.innerWidth  - overlay.offsetWidth  - 28;
+    ty = window.innerHeight - overlay.offsetHeight - 28;
+    apply();
+  }
+  function clamp() {
+    const w = overlay.offsetWidth, h = overlay.offsetHeight;
+    const maxX = window.innerWidth - w - 6, maxY = window.innerHeight - h - 6;
+    tx = Math.max(6, Math.min(tx, maxX));
+    ty = Math.max(6, Math.min(ty, maxY));
+  }
+  function apply() { overlay.style.transform = `translate(${tx}px, ${ty}px)`; }
+
+  let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+  dragBar.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".icon-btn")) return;
+    dragging = true; sx = e.clientX; sy = e.clientY; ox = tx; oy = ty;
+    dragBar.setPointerCapture(e.pointerId);
+  });
+  dragBar.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    tx = ox + (e.clientX - sx); ty = oy + (e.clientY - sy);
+    clamp(); apply();
+  });
+  dragBar.addEventListener("pointerup", (e) => {
+    dragging = false;
+    try { dragBar.releasePointerCapture(e.pointerId); } catch {}
+  });
+  window.addEventListener("resize", () => { clamp(); apply(); });
+
+  // ---------- state machine ----------
+  function setState(s) {
+    overlay.dataset.state = s;
+    stateLabel.textContent = s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // ---------- temporal-echo token reveal ----------
+  // timers tracked per element so removed captions stop animating (perf)
+  const revealTimers = new WeakMap();
+  function revealTokens(el, text) {
+    const prev = revealTimers.get(el);
+    if (prev) prev.forEach(clearTimeout);
+    el.innerHTML = "";
+    const words = text.split(" ");
+    const stagger = Math.min(48, 560 / Math.max(words.length, 1));
+    const timers = [];
+    words.forEach((w, i) => {
+      const span = document.createElement("span");
+      span.className = "tok";
+      span.textContent = w + (i < words.length - 1 ? " " : "");
+      el.appendChild(span);
+      timers.push(setTimeout(() => span.classList.add("in"), stagger * i));
+    });
+    revealTimers.set(el, timers);
+  }
+
+  const cVi = document.getElementById("cVi");
+  const cEn = document.getElementById("cEn");
+  const MAX = 30;
+  let toListen = null;
+
+  function pushCaption(vi, en, mt) {
+    setState("translating");
+    fireSynapse();
+
+    // collapsed live line
+    cVi.textContent = vi;
+    revealTokens(cEn, en);
+
+    // expanded stream entry (prepend newest on top)
+    const cap = document.createElement("div");
+    cap.className = "cap fresh";
+    const viEl = document.createElement("div"); viEl.className = "vi"; viEl.textContent = vi;
+    const enEl = document.createElement("div"); enEl.className = "en";
+    const roleEn = document.createElement("div"); roleEn.className = "role en"; roleEn.textContent = "English · live";
+    const roleVi = document.createElement("div"); roleVi.className = "role"; roleVi.textContent = "Vietnamese · source";
+    cap.appendChild(roleVi); cap.appendChild(viEl);
+    cap.appendChild(roleEn); cap.appendChild(enEl);
+    stream.insertBefore(cap, stream.firstChild);
+    revealTokens(enEl, en);
+    while (stream.children.length > MAX) {
+      const gone = stream.lastChild;
+      const t = revealTimers.get(gone.querySelector(".en"));
+      if (t) t.forEach(clearTimeout);
+      stream.removeChild(gone);
+    }
+    stream.scrollTop = 0;
+
+    document.getElementById("mMt").textContent = mt;
+    document.getElementById("mE2e").textContent = mt + 150 + (Math.random()*40|0);
+
+    bumpActivity();
+    clearTimeout(toListen);
+    toListen = setTimeout(() => setState("listening"), 1400);
+  }
+
+  // ---------- auto-collapse after 3s of no speech ----------
+  let idleTimer = null;
+  function bumpActivity() {
+    if (collapsed && !userCollapsed) setCollapsed(false);
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { if (!dragging) setCollapsed(true); }, 3000);
+  }
+
+  // ---------- shared session state (mirrors popup via chrome.storage.local) ----------
+  // The overlay has no language/engine pickers of its own; it reflects the
+  // session the popup configured. We mock that shared store with `state` and
+  // hydrate it from chrome.storage.local when available, falling back to demo.
+  const state = {
+    src: "vi", tgt: "en",
+    stt: "phowhisper",          // STT engine
+    source: "tab",              // audio source
+    translate_model: "marian",
+    voice: "aria",
+    muted: false,
+    speed: 1.0
+  };
+
+  function hydrateState() {
+    try {
+      if (window.chrome && chrome.storage && chrome.storage.local) {
+        chrome.storage.local.get("sgConfig", (res) => {
+          if (res && res.sgConfig) {
+            Object.assign(state, res.sgConfig);
+            state.muted = muteBtn.classList.contains("muted");
+            pushConfigIfLive();
+          }
+        });
+        chrome.storage.onChanged.addListener((changes, area) => {
+          if (area === "local" && changes.sgConfig) {
+            Object.assign(state, changes.sgConfig.newValue || {});
+            pushConfigIfLive();
+          }
+        });
+      }
+    } catch {}
+  }
+
+  // ---------- WebSocket: send REAL session config on open, demo fallback ----------
+  let ws = null, demoTimer = null;
+  function buildConfigMessage() {
+    state.muted = muteBtn.classList.contains("muted");
+    return {
+      type: "config",
+      src: state.src,
+      tgt: state.tgt,
+      backend: state.stt,                 // STT engine
+      model: state.source,                // audio source
+      translate_model: state.translate_model,
+      voice: state.voice,
+      muted: state.muted,
+      speed: state.speed
+    };
+  }
+  function pushConfigIfLive() {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      try { ws.send(JSON.stringify(buildConfigMessage())); } catch {}
+    }
+  }
+  function connect() {
+    try {
+      ws = new WebSocket("ws://localhost:8000/ws");
+      ws.onopen = () => { ws.send(JSON.stringify(buildConfigMessage())); setState("listening"); };
+      ws.onmessage = (ev) => {
+        try {
+          const m = JSON.parse(ev.data);
+          if (m.vi || m.en) pushCaption(m.vi || "", m.en || "", (m.metrics && m.metrics.mt) || 70);
+        } catch {}
+      };
+      ws.onerror = () => startDemo();
+      ws.onclose = () => startDemo();
+      setTimeout(() => { if (!ws || ws.readyState !== WebSocket.OPEN) startDemo(); }, 1200);
+    } catch { startDemo(); }
+  }
+
+  const SAMPLES = [
+    ["Cảm ơn mọi người đã tham gia cuộc họp hôm nay.", "Thank you all for joining today's meeting.", 64],
+    ["Tôi nghĩ chúng ta nên thử cách tiếp cận mới cho dự án này.", "I think we should try a new approach for this project.", 71],
+    ["Bạn có thể chia sẻ màn hình của mình không?", "Could you share your screen, please?", 58],
+    ["Kết quả quý này tốt hơn dự kiến rất nhiều.", "This quarter's results are much better than expected.", 66],
+    ["Hãy chốt lại các bước tiếp theo trước khi kết thúc.", "Let's confirm the next steps before we wrap up.", 73],
+  ];
+  let si = 0;
+  function startDemo() {
+    if (demoTimer) return;
+    setState("listening");
+    const tick = () => { const [vi, en, mt] = SAMPLES[si % SAMPLES.length]; si++; pushCaption(vi, en, mt); };
+    tick();
+    demoTimer = setInterval(tick, 4200);
+  }
+
+  // boot
+  place();
+  setState("listening");
+  bumpActivity();
+  hydrateState();
+  connect();
+})();
+</script>
+</body>
+</html>
