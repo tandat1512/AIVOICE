@@ -55,16 +55,28 @@ function Studio({ colors, glow, bars, panelSolid, settings, source, setSource, s
   const [scrollLock,setScrollLock] = useState(true);
   const [toast,setToast]     = useState(null);
   const [ytUrl,setYtUrl]     = useState('');
+  const [ytSegs,setYtSegs]   = useState([]);   // [{id,start,dur,text,translated,audioReady}]
+  const [ytActiveIdx,setYtActiveIdx] = useState(-1);
 
   const sessionRef = useRef(null);
   const levelRef   = useRef(0);                       // mic amplitude → orb
   const srcBody = useRef(null), tgtBody = useRef(null);
   const ytHostRef  = useRef(null);                   // embedded YouTube player host
+  const ytSegRefs  = useRef([]);                     // per-segment DOM nodes for auto-scroll
+
+  function fmtTime(sec){ const s=Math.max(0,Number(sec)||0),m=Math.floor(s/60),r=Math.floor(s%60); return m+':'+(r<10?'0':'')+r; }
 
   useEffect(()=>{ if(scrollLock && srcBody.current) srcBody.current.scrollTop = srcBody.current.scrollHeight; },[committed,interim,scrollLock]);
   useEffect(()=>{ if(scrollLock && tgtBody.current) tgtBody.current.scrollTop = tgtBody.current.scrollHeight; },[tgtChunks,tgtPreview,scrollLock]);
   useEffect(()=>{ if(!running) setConn('idle'); },[source,running]);
   useEffect(()=>()=>{ if(sessionRef.current) sessionRef.current.stop(); },[]);
+  useEffect(()=>{
+    if(!scrollLock||source!=='youtube'||ytActiveIdx<0||!srcBody.current) return;
+    const node=ytSegRefs.current[ytActiveIdx]; if(!node) return;
+    const c=srcBody.current;
+    const top=c.scrollTop+(node.getBoundingClientRect().top-c.getBoundingClientRect().top)-(c.clientHeight-node.clientHeight)/2;
+    c.scrollTo({top,behavior:'smooth'});
+  },[ytActiveIdx,scrollLock]);
 
   // live-apply settings to an active session
   useEffect(()=>{ if(sessionRef.current) sessionRef.current.setSpeed(settings.speed); },[settings.speed]);
@@ -91,10 +103,10 @@ function Studio({ colors, glow, bars, panelSolid, settings, source, setSource, s
         onStatus: (s)=>{ setStatus(s); if(s==='loading') setLoading(true); },
         onReady: ()=>{ setLoading(false); setConn('connected'); },
         onMode:  (m)=> setMode(m),
-        onTranscript: ({committed,interim})=>{ setCommitted(committed); setInterim(interim); },
+        onTranscript: ({segments,currentIdx})=>{ setYtSegs(segments||[]); setYtActiveIdx(typeof currentIdx==='number'?currentIdx:-1); },
         onTranslation: ({committed,preview})=>{ setTgtChunks(committed); setTgtPreview(preview); },
         onError: (msg)=>{ setRunning(false); setLoading(false); setConn('idle'); setStatus('idle'); setMode('idle'); setMicError(msg); },
-        onClose: ()=>{ setRunning(false); setMode('idle'); setStatus('idle'); setLoading(false); setConn('idle'); },
+        onClose: ()=>{ setRunning(false); setMode('idle'); setStatus('idle'); setLoading(false); setConn('idle'); setYtSegs([]); setYtActiveIdx(-1); },
       });
       sessionRef.current = sess;
       sess.start();
@@ -129,9 +141,10 @@ function Studio({ colors, glow, bars, panelSolid, settings, source, setSource, s
   function stop(){
     if(sessionRef.current){ sessionRef.current.stop(); sessionRef.current=null; }
     setRunning(false); setMode('idle'); setStatus('idle'); setLoading(false); setConn('idle'); setInterim('');
+    setYtSegs([]); setYtActiveIdx(-1);
   }
 
-  function clearAll(){ setCommitted(''); setInterim(''); setTgtChunks([]); setTgtPreview(''); }
+  function clearAll(){ setCommitted(''); setInterim(''); setTgtChunks([]); setTgtPreview(''); setYtSegs([]); setYtActiveIdx(-1); }
 
   // For tab/Meet sources the "Kết nối" button starts the session — capture happens
   // through getDisplayMedia inside start().
@@ -163,14 +176,15 @@ function Studio({ colors, glow, bars, panelSolid, settings, source, setSource, s
   }
 
   const STATUS = buildStatus(settings.sttModel || STT_BACKEND, settings.translateModel || 'nllb-600m');
-  // YouTube source has NO STT — it dubs from the caption transcript. Use labels that
-  // never mention STT so the UI doesn't imply speech-to-text is running.
+  const _ytTotal = ytSegs.length;
+  const _ytTr    = ytSegs.filter(s=>s.translated!==null).length;
+  const _ytTts   = ytSegs.filter(s=>s.audioReady).length;
   const YT_STATUS = {
     idle:        { state:'Sẵn sàng',        sub:'Dán link rồi nhấn Bắt đầu' },
     connecting:  { state:'Đang tải',        sub:'Đang lấy phụ đề video…' },
-    loading:     { state:'Đang tải',        sub:'Đang lấy phụ đề video…' },
-    listening:   { state:'Sẵn sàng',        sub:'Nhấn Play để bắt đầu lồng tiếng' },
-    translating: { state:'Đang lồng tiếng', sub:'Phụ đề → bản dịch → giọng đọc' },
+    loading:     { state:'Đang tải',        sub:_ytTotal?`${_ytTotal} đoạn phụ đề`:'Đang lấy phụ đề video…' },
+    listening:   { state:'Sẵn sàng',        sub:_ytTotal?`Dịch ${_ytTr}/${_ytTotal} · TTS ${_ytTts}/${_ytTotal}`:'Nhấn Play để bắt đầu lồng tiếng' },
+    translating: { state:'Đang lồng tiếng', sub:`Dịch ${_ytTr}/${_ytTotal} · TTS ${_ytTts}/${_ytTotal}` },
     speaking:    { state:'Đang lồng tiếng', sub:'Phụ đề → bản dịch → giọng đọc' },
   };
   // Dynamic status strings from the health-poll phase (e.g. "Chờ server… (3)") fall
@@ -228,7 +242,22 @@ function Studio({ colors, glow, bars, panelSolid, settings, source, setSource, s
           </div>
           <div className="pane-body" ref={srcBody} style={bodyStyle}>
             {source==='youtube' ? (
-              <div className="empty-hint">Chế độ lồng tiếng dùng <b>phụ đề có sẵn của YouTube</b> — <b>không phiên âm (STT)</b>, không bắt âm thanh tab.<br/>Bản dịch &amp; giọng đọc chạy ở khung bên phải.</div>
+              ytSegs.length===0 ? (
+                <div className="empty-hint">Dán link YouTube rồi nhấn <b>Bắt đầu</b>.<br/>Phụ đề gốc và bản dịch sẽ xuất hiện ở đây, tự bám theo video.</div>
+              ) : (
+                <React.Fragment>
+                  {ytSegs.map((seg,i)=>(
+                    <div key={seg.id}
+                      ref={el=>ytSegRefs.current[i]=el}
+                      className={'audio-seg'+(i===ytActiveIdx?' active':'')}
+                      style={{opacity:seg.audioReady?1:seg.translated!==null?0.75:0.45,transition:'opacity 0.3s'}}>
+                      <div className="audio-time">{fmtTime(seg.start)}</div>
+                      <div className="audio-src">{seg.text}</div>
+                      {seg.translated!==null&&seg.translated!==''&&<div className="audio-tgt">{seg.translated}</div>}
+                    </div>
+                  ))}
+                </React.Fragment>
+              )
             ) : (
               <React.Fragment>
                 {!hasSrc && (

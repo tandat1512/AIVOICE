@@ -1,4 +1,4 @@
-# smartgen — realtime streaming translate + TTS (no paid APIs)
+# smartgen — realtime streaming translate + TTS (no paid API s)
 
 Replicates the pipeline from the design diagram, but **100% open-source / local** —
 no Deepgram, no cloud STT, no translation API, no cloud TTS.

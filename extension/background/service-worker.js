@@ -64,6 +64,43 @@ chrome.runtime.onConnect.addListener(port => {
   ensureWsConnected();
 });
 
+// ── Generic REST relay (bypasses page CORS — content-script fetch() does not get
+// the host_permissions CORS exemption, only the service worker's fetch does) ──────
+
+function bufToBase64(buf) {
+  const bytes = new Uint8Array(buf);
+  let binary = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.type !== 'sg_fetch') return;
+  (async () => {
+    try {
+      const resp = await fetch(msg.url, {
+        method: msg.method || 'GET',
+        headers: msg.headers || {},
+        body: msg.body,
+        signal: msg.timeoutMs ? AbortSignal.timeout(msg.timeoutMs) : undefined,
+      });
+      const headers = {};
+      resp.headers.forEach((v, k) => { headers[k] = v; });
+      if (msg.binary) {
+        sendResponse({ ok: resp.ok, status: resp.status, headers, bodyB64: bufToBase64(await resp.arrayBuffer()) });
+      } else {
+        sendResponse({ ok: resp.ok, status: resp.status, headers, text: await resp.text() });
+      }
+    } catch (e) {
+      sendResponse({ ok: false, status: 0, error: e.message || String(e) });
+    }
+  })();
+  return true; // keep the message channel open for the async sendResponse above
+});
+
 // ── Content → server relay ────────────────────────────────────────────────────
 
 function handleContentMsg(msg) {

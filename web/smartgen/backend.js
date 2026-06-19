@@ -529,25 +529,27 @@
     };
   };
 
-  // ── YouTube transcript dubbing (mode A) ──────────────────────────────────────
-  // Embed the YouTube player, read its caption transcript (NO STT), translate +
-  // TTS each line a few seconds ahead of the playhead, and play the Vietnamese
-  // audio synced to player.getCurrentTime(). Original audio is muted. Same callback
-  // shape as createSession so the Studio can swap it into sessionRef.
-  // opts: { url, hostEl, speed, onStatus, onReady, onMode, onTranscript, onTranslation, onError, onClose }
+  // ── YouTube dubbing: transcript timeline → translate all → TTS all → sync play ─
+  // Flow:
+  //   1. GET /api/youtube/transcript  — fetch segments with timestamps, emit to source pane
+  //   2. translateLoop               — translate ALL segments in order (background)
+  //   3. ttsLoop                     — TTS each translated segment in order (background)
+  //   4. tick()                      — at each timestamp, play the audio + show translated text
+  // onTranscript fires with { segments, currentIdx } so the Studio can show the
+  // original-text timeline in the source pane (same pattern as AudioFileTranslateStudio).
   SG.createYoutubeDub = function (opts) {
     const o = opts || {};
     const cb = (name, ...args) => { if (typeof o[name] === 'function') o[name](...args); };
     const YT2NLLB = { en:'eng_Latn', vi:'vie_Latn', ja:'jpn_Jpan', ko:'kor_Hang', zh:'zho_Hans', fr:'fra_Latn', es:'spa_Latn', de:'deu_Latn', ru:'rus_Cyrl', th:'tha_Thai', id:'ind_Latn', pt:'por_Latn' };
     const toNllb = (c) => YT2NLLB[c] || YT2NLLB[(c || '').split('-')[0]] || 'eng_Latn';
-    const tgtNllb = toNllb(o.tgt || 'vi');   // user's target language -> NLLB code
+
     function extractId(s) {
       const m = (s || '').match(/(?:v=|youtu\.be\/|\/shorts\/|\/embed\/|\/live\/)([A-Za-z0-9_-]{11})/);
       if (m) return m[1];
       if (/^[A-Za-z0-9_-]{11}$/.test((s || '').trim())) return s.trim();
       return null;
     }
-    function ensureApi() {
+    function ensureYTApi() {
       return new Promise((res) => {
         if (window.YT && window.YT.Player) { res(); return; }
         const prev = window.onYouTubeIframeAPIReady;
@@ -560,49 +562,70 @@
       });
     }
 
-    let actx = null, player = null, ticking = false, lastT = 0, nextIdx = 0, nextFree = 0, wake = null;
-    let snips = [], srcNllb = 'eng_Latn', speed = o.speed || 1.0;
-    let tgtChunks = [], chunkId = 0;
-    const prepared = {};        // i -> { audio }   (audio === null = synthesis gave up)
-    const translated = {};      // i -> string      ('' = empty / gave up)
-    const trAttempts = {}, ttsAttempts = {};
-    const _dbg = { played: 0, skipLate: 0, skipBacklog: 0, nullAudio: 0, _t: 0 };
-    try { window.__ytdub = _dbg; } catch (_) {}
-    let _badge = null;
-    function ensureBadge() {
-      if (_badge || typeof document === 'undefined' || !document.body) return;
-      _badge = document.createElement('div');
-      _badge.style.cssText = 'position:fixed;left:10px;bottom:10px;z-index:99999;background:#111;color:#0f0;font:12px monospace;padding:6px 10px;border-radius:6px;cursor:pointer;opacity:.9';
-      _badge.title = 'Bấm để bật tiếng lồng (mở khoá AudioContext)';
-      _badge.onclick = () => { ensureCtx(); if (actx) actx.resume(); };
-      document.body.appendChild(_badge);
-    }
-    function updateBadge() {
-      if (!_badge) return;
-      const st = actx ? actx.state : 'none';
-      _badge.textContent = '🔊 ' + st + ' · phát:' + _dbg.played + (st !== 'running' ? ' — BẤM ĐỂ BẬT TIẾNG' : '');
-      _badge.style.color = (st === 'running') ? '#3f6' : '#f55';
-    }
-    function removeBadge() { if (_badge) { try { _badge.remove(); } catch (_) {} _badge = null; } }
+    let actx = null, ytPlayer = null;
+    let ticking = false, prefetching = false;
+    let snips = [], srcNllb = 'eng_Latn';
+    const tgtNllb = toNllb(o.tgt || 'vi');
+    let speed = o.speed || 1.0;
+    let playIdx = 0, dispIdx = 0, nextFree = 0, lastT = 0, activeIdx = -1;
 
-    function ensureCtx() {
-      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
-      if (actx.state === 'suspended') actx.resume();
+    const translated = {};   // i -> string ('' if gave up)
+    const audioBufs  = {};   // i -> AudioBuffer | null (null=failed) | false (played, freed)
+    const trTries = {}, ttsTries = {};
+
+    const MAX_TTS_AHEAD = 20;  // max buffered audio clips ahead of playhead
+    const MAX_WAIT_S    = 5;   // give up waiting for audio before playing the next clip
+    const MAX_TEXT_WAIT_S = 1.5; // give up waiting for translation text (translateLoop is fast, this is just a safety net)
+
+    function emitSegments() {
+      const segments = snips.map((s, i) => {
+        const ab = audioBufs[i];
+        return {
+          id: i, start: s.start, dur: s.dur, text: s.text,
+          translated: translated[i] !== undefined ? (translated[i] || '') : null,
+          audioReady: ab === false || (ab != null && ab !== undefined),
+        };
+      });
+      cb('onTranscript', { segments, currentIdx: activeIdx });
     }
-    async function translate(text) {
-      if (srcNllb === tgtNllb) return text;   // caption already in the target language
-      const r = await fetch('/api/youtube/translate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text, src_lang: srcNllb, tgt_lang: tgtNllb }), signal: AbortSignal.timeout(15000) });
-      return ((await r.json()).translated_text || '').trim();
+
+    function emitTranslation() {
+      const committed = [];
+      for (let i = 0; i <= activeIdx && i < snips.length; i++) {
+        const txt = (translated[i] || '').trim();
+        if (txt) committed.push({ id: i, text: txt, start: snips[i].start, speaker: 0 });
+      }
+      cb('onTranslation', { committed, preview: '' });
     }
-    async function tts(text, synthSpeed = speed) {
-      if (!text) return null;
-      // Vietnamese -> VITS (/api/youtube/tts); English -> Kokoro (/api/tts/say).
+
+    async function doTranslate(i) {
+      if (srcNllb === tgtNllb) { translated[i] = snips[i].text; return; }
+      const r = await fetch('/api/youtube/translate', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: snips[i].text, src_lang: srcNllb, tgt_lang: tgtNllb }),
+        signal: AbortSignal.timeout(20000),
+      });
+      translated[i] = ((await r.json()).translated_text || '').trim();
+    }
+
+    async function doTts(i) {
+      const txt = translated[i];
+      if (!txt) { audioBufs[i] = null; return; }
+      const synthSpeed = (o.tgt === 'vi') ? Math.max(speed, 1.4) : speed;
       let resp, defSr;
       if (o.tgt === 'vi') {
-        resp = await fetch('/api/youtube/tts', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text, speed: synthSpeed }), signal: AbortSignal.timeout(15000) });
+        resp = await fetch('/api/youtube/tts', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: txt, speed: synthSpeed }),
+          signal: AbortSignal.timeout(30000),
+        });
         defSr = '22050';
       } else {
-        resp = await fetch('/api/tts/say', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text, voice: o.voice || '' }), signal: AbortSignal.timeout(15000) });
+        resp = await fetch('/api/tts/say', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: txt, voice: o.voice || '' }),
+          signal: AbortSignal.timeout(30000),
+        });
         defSr = '24000';
       }
       const sr = parseInt(resp.headers.get('X-Sample-Rate') || defSr, 10);
@@ -611,195 +634,182 @@
       for (let k = 0; k < i16.length; k++) f32[k] = i16[k] / 32768;
       const ab = actx.createBuffer(1, f32.length, sr);
       ab.getChannelData(0).set(f32);
-      return ab;
+      audioBufs[i] = ab;
     }
-    // ── Two-stage prep, both single-flight (one fetch at a time so the box is never
-    // flooded). Translation runs on the GPU (NLLB_DEVICE=cuda) AHEAD of TTS on the
-    // CPU, in parallel, so the on-screen translation is always ready in time while
-    // voice synthesis — the slower, CPU-bound stage — fills the audio buffer behind
-    // it. Transient failures RETRY instead of permanently dropping a line (that was
-    // the old "translated a bit then froze" bug). Text is shown in sync even when a
-    // voice clip is late/skipped, so the translation never appears to stall.
-    const MAX_PREPARED = 12;   // cap ready-but-unplayed audio clips ahead (client RAM)
-    const TR_AHEAD = 40;       // translate up to this many lines ahead of the playhead
-    const STALE_S = 1.5;       // (kept) translation grace
-    const MAX_WAIT_S = 5;      // wait up to this long for a line's VOICE before showing its text alone — keeps text+voice TOGETHER
-    const MAX_BACKLOG_S = 3.0; // anti-overlap guard for back-to-back clips
-    let prefetching = false;
+
+    // Translate ALL segments in order, one at a time
     async function translateLoop() {
       if (!prefetching) return;
       let job = -1;
-      for (let i = nextIdx; i < snips.length && i < nextIdx + TR_AHEAD; i++) {
-        if (translated[i] === undefined && (trAttempts[i] || 0) < 3) { job = i; break; }
+      for (let i = 0; i < snips.length; i++) {
+        if (translated[i] === undefined && (trTries[i] || 0) < 3) { job = i; break; }
       }
-      if (job < 0) { setTimeout(translateLoop, 150); return; }   // far enough ahead — re-check soon
+      if (job < 0) return; // all done
       try {
-        translated[job] = await translate(snips[job].text);
-      } catch (e) {
-        trAttempts[job] = (trAttempts[job] || 0) + 1;
-        if (trAttempts[job] >= 3) translated[job] = '';          // give up -> empty (line keeps flowing)
+        await doTranslate(job);
+      } catch (_) {
+        trTries[job] = (trTries[job] || 0) + 1;
+        if (trTries[job] >= 3) translated[job] = '';
       }
-      translateLoop();                                           // chain to the next line
+      emitSegments();
+      if (prefetching) setTimeout(translateLoop, 30);
     }
+
+    // TTS all translated segments in order, respecting the ahead-buffer cap
     async function ttsLoop() {
       if (!prefetching) return;
-      let job = -1, ready = 0;
-      for (let i = nextIdx; i < snips.length; i++) {
-        if (prepared[i] && prepared[i].audio) ready++;
-        if (ready >= MAX_PREPARED) break;                        // audio buffer full enough
-        if (translated[i] !== undefined && prepared[i] === undefined && (ttsAttempts[i] || 0) < 2) { job = i; break; }
+      // Count ready buffers ahead of playhead
+      let readyAhead = 0;
+      for (let i = playIdx; i < snips.length; i++) {
+        if (audioBufs[i] instanceof AudioBuffer) readyAhead++;
+        if (readyAhead >= MAX_TTS_AHEAD) break;
       }
-      if (job < 0) { setTimeout(ttsLoop, 100); return; }
+      let job = -1;
+      for (let i = 0; i < snips.length; i++) {
+        if (translated[i] !== undefined && audioBufs[i] === undefined && (ttsTries[i] || 0) < 2) { job = i; break; }
+      }
+      if (job < 0 || readyAhead >= MAX_TTS_AHEAD) { setTimeout(ttsLoop, 200); return; }
       try {
-        const txt = translated[job] || '';
-        // The Vietnamese VITS voice is slow/deliberate, so synthesize it brisker
-        // (1.4x native VITS time-stretch — about the most it compresses, no pitch
-        // shift, sounds like an energetic narrator and synthesizes ~4x faster). The
-        // remaining window-fit is done at playback. Without this the dub piles up and
-        // lines get dropped.
-        const synthSpeed = (o.tgt === 'vi') ? Math.max(speed, 1.4) : speed;
-        const audio = txt ? await tts(txt, synthSpeed) : null;
-        prepared[job] = { audio };
-      } catch (e) {
-        ttsAttempts[job] = (ttsAttempts[job] || 0) + 1;
-        if (ttsAttempts[job] >= 2) prepared[job] = { audio: null };
+        await doTts(job);
+      } catch (_) {
+        ttsTries[job] = (ttsTries[job] || 0) + 1;
+        if (ttsTries[job] >= 2) audioBufs[job] = null;
       }
-      ttsLoop();
+      emitSegments();
+      if (prefetching) setTimeout(ttsLoop, 30);
     }
-    function startPrefetch() {
-      if (prefetching) return;
-      prefetching = true;
-      translateLoop();   // GPU stage
-      ttsLoop();         // CPU stage (runs in parallel with the above)
-    }
-    function emitPanes() {
-      // No source-transcript mirror — the YouTube dub only shows the translation.
-      cb('onTranslation', { committed: tgtChunks.slice(), preview: '' });
-    }
+
     function windowFor(i) {
       const nx = snips[i + 1];
       return nx ? (nx.start - snips[i].start) : (snips[i].dur || 3);
     }
-    function showText(i) {
-      const txt = (translated[i] || '').trim();
-      if (txt) { tgtChunks.push({ id: ++chunkId, text: txt, speaker: 0 }); emitPanes(); }
-    }
+
     function playClip(i) {
-      const d = prepared[i];
-      if (!d || !d.audio) { _dbg.nullAudio++; return; }
+      const ab = audioBufs[i];
+      if (!(ab instanceof AudioBuffer)) return;
       cb('onMode', 'speaking');
-      // Base rate: VITS already baked `speed` into the vi audio; Kokoro (en) did not.
-      const baseRate = (o.tgt === 'vi') ? 1 : Math.max(0.5, Math.min(3, speed));
-      // Residual fit: the vi clip was already time-stretched at synth, so only nudge it
-      // (1.35x) if the estimate undershot; en (Kokoro has no speed param) fits here.
+      const baseRate = (o.tgt === 'vi') ? 1.0 : Math.max(0.5, Math.min(3, speed));
       const W = windowFor(i);
       let rate = baseRate;
-      if (W > 0.4 && d.audio.duration / rate > W) {
-        const resid = (o.tgt === 'vi') ? 1.7 : 1.6;
-        rate = Math.min(baseRate * resid, d.audio.duration / W);
+      if (W > 0.4 && ab.duration / rate > W) {
+        rate = Math.min(baseRate * ((o.tgt === 'vi') ? 1.7 : 1.6), ab.duration / W);
       }
       rate = Math.max(0.5, Math.min(2.0, rate));
-      const s = actx.createBufferSource();
-      s.buffer = d.audio;
-      s.playbackRate.value = rate;
-      s.connect(actx.destination);
+      const src = actx.createBufferSource();
+      src.buffer = ab;
+      src.playbackRate.value = rate;
+      src.connect(actx.destination);
       const at = Math.max(actx.currentTime, nextFree);
-      s.start(at); nextFree = at + d.audio.duration / rate;
-      _dbg.played++;
-      if (_dbg.played <= 6) console.log('[ytdub] PLAY', i, 'state', actx.state, 'at', at.toFixed(2), 'ct', actx.currentTime.toFixed(2), 'dur', d.audio.duration.toFixed(2), 'rate', rate.toFixed(2));
+      src.start(at);
+      nextFree = at + ab.duration / rate;
+      audioBufs[i] = false; // mark as played, free AudioBuffer memory
     }
+
     function tick() {
       if (!ticking) return;
-      if (player && player.getCurrentTime) {
-        const t = player.getCurrentTime();
-        if (Math.abs(t - lastT) > 1.5) {            // user seeked -> resync (keep translations, drop audio buffer)
-          for (const k in prepared) delete prepared[k];
-          for (const k in ttsAttempts) delete ttsAttempts[k];
-          nextIdx = snips.findIndex((s) => s.start >= t - 0.2);
-          if (nextIdx < 0) nextIdx = snips.length;
-          nextFree = actx.currentTime;
+      if (ytPlayer && ytPlayer.getCurrentTime) {
+        const t = ytPlayer.getCurrentTime();
+        if (Math.abs(t - lastT) > 1.5) { // seek detected — resync
+          playIdx = snips.findIndex((s) => s.start >= t - 0.2);
+          if (playIdx < 0) playIdx = snips.length;
+          dispIdx = playIdx;
+          nextFree = actx ? actx.currentTime : 0;
         }
         lastT = t;
-        while (nextIdx < snips.length && snips[nextIdx].start <= t) {
-          const cur = nextIdx;
+        let changed = false;
+        // Text display advances on translation readiness alone — translateLoop runs
+        // far ahead of playback, so this is rarely the bottleneck. It must NOT wait on
+        // audio: TTS synthesis (CPU-bound, one clip at a time) is much slower than
+        // translation, and gating text on it made the translation pane visibly lag
+        // behind the (already-fast) translateLoop, even though the text was ready.
+        while (dispIdx < snips.length && snips[dispIdx].start <= t) {
+          const cur = dispIdx;
           const trReady = translated[cur] !== undefined;
-          const audReady = prepared[cur] !== undefined;
-          const gaveUpWaiting = snips[cur].start < t - MAX_WAIT_S;
-          // Keep TEXT and VOICE together: wait until BOTH are ready before emitting the
-          // line. Only after waiting too long do we fall back to text-only, so one stuck
-          // clip can't stall the whole dub.
-          if ((!trReady || !audReady) && !gaveUpWaiting) break;
-          showText(cur);
-          if (audReady) playClip(cur); else _dbg.skipLate++;
-          delete prepared[cur];
-          nextIdx++;
+          const gaveUp  = snips[cur].start < t - MAX_TEXT_WAIT_S;
+          if (!trReady && !gaveUp) break;
+          activeIdx = cur;
+          changed = true;
+          dispIdx++;
         }
+        // Audio playback advances independently, gated on its own (slower) readiness.
+        while (playIdx < snips.length && snips[playIdx].start <= t) {
+          const cur = playIdx;
+          const audReady = audioBufs[cur] !== undefined; // null/false/AudioBuffer all count
+          const gaveUp   = snips[cur].start < t - MAX_WAIT_S;
+          if (!audReady && !gaveUp) break;
+          changed = true;
+          playClip(cur);
+          playIdx++;
+        }
+        if (changed) { emitTranslation(); emitSegments(); }
       }
-      if ((_dbg._t = _dbg._t + 1) % 30 === 0)
-        console.log('[ytdub] stats', JSON.stringify(_dbg), 'ctx', actx && actx.state, 'nextIdx', nextIdx);
-      updateBadge();
       setTimeout(tick, 100);
     }
 
     async function start() {
       try {
-        ensureCtx();
-        // Unlock audio inside the user gesture: some browsers keep a bare AudioContext
-        // silent until a source has played from a gesture. Start a 1-sample silent buffer.
-        try { const _b = actx.createBuffer(1, 1, 22050); const _s = actx.createBufferSource(); _s.buffer = _b; _s.connect(actx.destination); _s.start(0); } catch (_) {}
-        if (actx && actx.state === 'suspended') { try { await actx.resume(); } catch (_) {} }
-        console.log('[ytdub] start: ctx.state =', actx && actx.state);
-        ensureBadge();
-        // Warm the Vietnamese VITS model now (it lazy-loads ~2-3s on first call) so the
-        // very first dubbed line is not delayed by a cold model load.
-        if (o.tgt === 'vi') fetch('/api/youtube/tts', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ text:'xin chào', speed: 1.4 }) }).catch(()=>{});
-        // Safety net: the YouTube Play button is a cross-origin gesture and does NOT
-        // resume OUR AudioContext, so if it is still suspended, wake it on the next
-        // click/keypress anywhere on the page (otherwise audio is scheduled silently).
-        wake = () => { if (actx && actx.state === 'suspended') { actx.resume(); console.log('[ytdub] wake->resume; state', actx.state); } };
-        document.addEventListener('pointerdown', wake, true);
-        document.addEventListener('keydown', wake, true);
+        actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+        try { const b=actx.createBuffer(1,1,22050); const s=actx.createBufferSource(); s.buffer=b; s.connect(actx.destination); s.start(0); } catch(_) {}
+        if (actx.state === 'suspended') await actx.resume();
+
         cb('onStatus', 'connecting');
         const id = extractId(o.url);
         if (!id) { cb('onError', 'Link YouTube không hợp lệ.'); return; }
-        const r = await fetch('/api/youtube/transcript?id=' + encodeURIComponent(id) + '&src=');
-        const j = await r.json();
-        if (j.error) { cb('onError', 'Lỗi transcript: ' + j.error); return; }
-        snips = j.snippets || []; srcNllb = toNllb(j.lang);
+
+        // Step 1: Fetch transcript with timeline
+        const resp = await fetch('/api/youtube/transcript?id=' + encodeURIComponent(id) + '&src=');
+        const data = await resp.json();
+        if (data.error) { cb('onError', 'Lỗi transcript: ' + data.error); return; }
+        snips   = data.snippets || [];
+        srcNllb = toNllb(data.lang);
         if (!snips.length) { cb('onError', 'Video này không có phụ đề để lồng tiếng.'); return; }
-        await ensureApi();
-        const host = o.hostEl; if (host) host.innerHTML = '';
-        const target = document.createElement('div');
-        if (host) host.appendChild(target);
-        player = new YT.Player(target, {
+
+        emitSegments(); // show raw segments immediately
+        cb('onStatus', 'loading');
+
+        // Step 2: Start translate → TTS pipeline for all segments
+        prefetching = true;
+        if (o.tgt === 'vi') fetch('/api/youtube/tts', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text:'xin chào',speed:1.4}) }).catch(()=>{});
+        translateLoop();
+        ttsLoop();
+
+        // Step 3: Embed YouTube player
+        await ensureYTApi();
+        if (o.hostEl) o.hostEl.innerHTML = '';
+        const div = document.createElement('div');
+        if (o.hostEl) o.hostEl.appendChild(div);
+        ytPlayer = new YT.Player(div, {
           videoId: id,
           playerVars: { rel: 0, modestbranding: 1, autoplay: 0 },
           events: {
-            onReady: (e) => { try { e.target.mute(); } catch (_) {} startPrefetch(); cb('onReady'); cb('onStatus', 'listening'); },
+            onReady: (e) => {
+              try { e.target.mute(); } catch(_) {}
+              cb('onReady'); cb('onStatus', 'listening');
+            },
             onStateChange: (e) => {
               if (e.data === YT.PlayerState.PLAYING) {
-                ensureCtx();
-                if (actx) { if (actx.state === 'suspended') actx.resume(); nextFree = actx.currentTime; }  // anchor the audio clock to "now"
-                console.log('[ytdub] PLAYING: ctx.state =', actx && actx.state, 'ct', actx && actx.currentTime.toFixed(2));
+                if (actx && actx.state === 'suspended') actx.resume();
+                if (actx) nextFree = actx.currentTime;
                 cb('onMode', 'translating');
                 if (!ticking) { ticking = true; tick(); }
+              } else if (e.data === YT.PlayerState.ENDED) {
+                cb('onMode', 'idle');
               }
             },
           },
         });
       } catch (e) { cb('onError', (e && e.message) || 'Không tải được video.'); }
     }
+
     function stop() {
-      ticking = false;
-      prefetching = false;
-      removeBadge();
-      if (wake) { document.removeEventListener('pointerdown', wake, true); document.removeEventListener('keydown', wake, true); wake = null; }
-      try { if (player && player.destroy) player.destroy(); } catch (_) {}
-      player = null;
-      try { if (actx) actx.close(); } catch (_) {}
+      ticking = false; prefetching = false;
+      try { if (ytPlayer && ytPlayer.destroy) ytPlayer.destroy(); } catch(_) {}
+      ytPlayer = null;
+      try { if (actx) actx.close(); } catch(_) {}
       actx = null;
       cb('onClose');
     }
+
     return { start, stop, setSpeed: (s) => { speed = s; }, setVoice: () => {}, setVad: () => {}, setLang: () => {} };
   };
 
